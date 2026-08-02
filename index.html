@@ -186,7 +186,7 @@ a.ix-card:hover .ix-t,a.ix-card:focus-visible .ix-t{text-decoration-thickness:2p
           결단을 요구하지 않는다는 것을 표지에서 먼저 밝힌다.
        ════════════════════════════════════════════════════════════════════════ -->
   <h2 class="bk-corner">이 책이 드리는 세 가지 약속</h2>
-  <ol class="ix-promise">
+  <ol class="ix-promise" role="list">
     <li><b>첫째, 강요하지 않습니다.</b>
       <span>“믿으셔야 합니다”라는 문장을 이 책에서는 쓰지 않겠습니다. 저는 이 이야기를 소개하는 사람이고, 판단은 읽는 분이 하십니다.</span></li>
     <li><b>둘째, 모르는 것은 모른다고 하겠습니다.</b>
@@ -200,7 +200,7 @@ a.ix-card:hover .ix-t,a.ix-card:focus-visible .ix-t{text-decoration-thickness:2p
        ④ 읽는 법
        ════════════════════════════════════════════════════════════════════════ -->
   <h2 class="bk-corner">읽는 법</h2>
-  <ul class="ix-how">
+  <ul class="ix-how" role="list">
     <li><b>순서대로 읽으시면 이야기가 이어집니다.</b> 각 장은 앞 장에서 받아 온 한 줄로 시작합니다. 여는 장(0장)부터 읽으시는 편이 가장 편합니다.</li>
     <li><b>한 장은 8분에서 11분쯤입니다.</b> 글자 수로 어림한 것이라 사람마다 다릅니다. 하루에 한 장씩 끊어 읽으셔도 됩니다.</li>
     <li><b>장 안에 「여기까지」가 한두 번 나옵니다.</b> 답을 적는 칸은 없습니다. 떠오르지 않으셔도 괜찮습니다. 되돌아가 볼 자리를 함께 적어 두었습니다.</li>
@@ -219,7 +219,7 @@ a.ix-card:hover .ix-t,a.ix-card:focus-visible .ix-t{text-decoration-thickness:2p
     지금은 <b>1 · 2 · 3 세 칸이 열려 있고</b>, 나머지 아홉 칸은 만들고 있습니다.
     열린 칸은 <b>굵은 실선 테두리에 「열림」</b>, 준비 중인 칸은 <b>점선 테두리에 「준비 중」</b>으로 적어 두었습니다.</p>
 
-  <ul class="bk-map ix-map bk-full" aria-label="열두 시대 지도 · 1~3은 열림, 4~12는 준비 중">
+  <ul class="bk-map ix-map bk-full" role="list" aria-label="열두 시대 지도 · 1~3은 열림, 4~12는 준비 중">
     <li class="is-open"><b>1</b><i>원역사</i><em>열림</em></li>
     <li class="is-open"><b>2</b><i>족장</i><em>열림</em></li>
     <li class="is-open"><b>3</b><i>출애굽·광야</i><em>열림</em></li>
@@ -239,7 +239,7 @@ a.ix-card:hover .ix-t,a.ix-card:focus-visible .ix-t{text-decoration-thickness:2p
        ⑥ 차례
        ════════════════════════════════════════════════════════════════════════ -->
   <h2 class="bk-corner" id="toc">차례</h2>
-  <ul class="ix-list">
+  <ul class="ix-list" role="list">
 
     <li><a class="ix-card" href="00.html">
       <div class="ix-num">0<small>여는 장</small></div>
@@ -289,12 +289,12 @@ a.ix-card:hover .ix-t,a.ix-card:focus-visible .ix-t{text-decoration-thickness:2p
   </ul>
 
   <!-- ════════════════════════════════════════════════════════════════════════
-       ⑦ 지면에서 만나는 표시 — 일곱 가지의 겉모습을 미리 알려 둔다.
+       ⑦ 지면에서 만나는 표시 — 여덟 가지의 겉모습을 미리 알려 둔다.
           🔴 여기 적힌 모양 설명은 전부 실제 지면의 테두리 문법과 같다.
              색 이름을 쓰지 않는다 — 색으로 찾게 만들면 색약인 독자에게 길잡이가 안 된다.
        ════════════════════════════════════════════════════════════════════════ -->
   <h2 class="bk-corner">지면에서 만나는 표시</h2>
-  <p class="ix-mapkey">일곱 가지가 반복해서 나옵니다. 겉모습이 서로 다르니 이름을 몰라도 눈으로 갈립니다.</p>
+  <p class="ix-mapkey">여덟 가지가 반복해서 나옵니다. 겉모습이 서로 다르니 이름을 몰라도 눈으로 갈립니다.</p>
 
   <dl class="ix-legend">
     <div>
@@ -324,6 +324,13 @@ a.ix-card:hover .ix-t,a.ix-card:focus-visible .ix-t{text-decoration-thickness:2p
     <div>
       <dt><span class="gl" aria-hidden="true">▤</span>한눈에</dt>
       <dd>네 면이 각진 실선 상자입니다. 그 장 전체를 한 자리에 모아 둔 곳입니다. 시간이 없으시면 여기만 보셔도 됩니다.</dd>
+    </div>
+    <!-- 🔁 그림(도해)이 빠져 있었다. 네 장 모두에 나오고 「▦ 그림 N · 이름」이라는
+         제 이름표까지 달고 있는데 범례에만 없어서, 읽는 사람이 처음 만나는 자리가
+         본문 한가운데였다. 앞의 일곱과 달리 테두리 상자가 아니라는 점도 함께 적는다. -->
+    <div>
+      <dt><span class="gl" aria-hidden="true">▦</span>그림</dt>
+      <dd>상자로 두르지 않고, 안에 막대·계단·띠 같은 그림이 들어 있습니다. 위에 「그림 1」처럼 번호와 이름이 붙고, 아래 한 줄이 그 그림에서 무엇을 보시면 되는지 말해 줍니다.</dd>
     </div>
   </dl>
 

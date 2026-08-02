@@ -15,18 +15,12 @@
 <meta property="og:site_name" content="『12시대』 학생용">
 <meta property="og:title" content="3장. 노예를 건져내고, 다시 빚으시다">
 <meta property="og:description" content="하루 만에 몸이 나온 사람들과, 마음이 나오는 데 40년이 걸린 이야기입니다. 건져내는 데 세 장이 들었고, 다시 빚는 데 네 권이 들었습니다.">
+<meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-/* 03장 국소 보정 — 0·1·2장이 이미 쓰는 것과 같은 두 줄인데 03 에만 없었다.
-   ① sticky 진도 바가 방금 이동한 소제목의 첫 줄을 덮지 않게 한다
-      — 이 장은 장면이 9개로 전 장 중 최다이고 「되돌아갈 곳」 링크가 11개다.
-        막힌 사람이 「↑「이미 업어 오신 분입니다」」를 눌렀는데 그 제목이 진도 바
-        아래로 숨으면, 링크가 고장 난 것으로 읽히고 점검은 교정 루프가 아니라
-        그냥 퀴즈가 된다(사양 §4-2 설계 원칙 3).
-   ② 링크 색은 본문색으로 되돌린다 — 구분은 색이 아니라 밑줄(모양)이 진다 (색약 대응)
-   승인되면 assets/style.css 로 옮긴다. */
-.bk-page h2[id]{scroll-margin-top:60px;}
-.bk-back-link{color:inherit;}
+/* ✅ 통합 완료 — 진도 바 여백과 되돌아갈 곳 링크는 네 장 공통 장치라
+   assets/style.css §27 로 옮겼다. 이 장은 장면이 9개로 가장 많고
+   되돌아갈 곳 링크가 11개라, 그 두 줄이 가장 크게 걸리는 지면이다. */
 /* ③ 한 성경 카드에 인용이 둘 들어가는 자리가 이 책에서 「가장 가까웠던 자리에서」
       하나뿐이다(민 13:30·13:33 — 원고가 한 블록에 나란히 둔 두 보고).
       장절 뒤에 다음 인용이 붙을 때만 한 줄 띄운다. 다른 카드에는 닿지 않는다. */
@@ -48,17 +42,16 @@
 
   <!-- ════════ B1 장 표지 ════════ -->
   <header class="bk-opener bk-full">
-    <div class="bk-no">3장</div>
+    <div class="bk-no">『12시대』 · 3장<br>성경 전체를 한 이야기로</div>
     <h1 class="bk-h1">노예를 건져내고, 다시 빚으시다</h1>
     <p><span class="bk-oneword">한 단어 · 건져냄</span></p>
-    <p class="bk-from">오늘 한 단어만 가져가시면 됩니다. <strong>건져냄</strong>입니다.</p>
 
     <!-- role="list" — CSS 가 `list-style:none` 을 주면 사파리/보이스오버가 목록이라는
          사실 자체를 버린다(웹킷 알려진 동작). 12칸 지도는 "12분의 몇"을 지고 있는
          목록이라 그 사실이 소리에서 사라지면 안 된다. 겉모습 변화 0.
          aria-current="step" — 현재 칸 표시가 채움·2.5px·▶ 셋 다 CSS 라, 소리로 들으면
          열두 칸이 전부 똑같았다. 글자를 더하지 않고 상태만 붙인다. -->
-    <ul class="bk-map" role="list">
+    <ul class="bk-map" role="list" aria-label="열두 시대 지도">
       <li class="done"><b>1</b><i>원역사</i></li>
       <li class="done"><b>2</b><i>족장</i></li>
       <li class="now" aria-current="step"><b>3</b><i>출애굽·광야</i></li>
@@ -78,7 +71,7 @@
          「지난 장」을 실제 링크로 건다(01.html 의 B2 와 같은 방식). 이 장은 학습 목표 ③이
          1장(정원)을, 「이어지는 실」이 1·2장을 전제하는데 앞 칸으로 가는 길이 한 군데도
          없었다. 문장은 원고 그대로 두고 길만 낸다. -->
-    <p class="bk-from">약속을 받은 집안이 약 400년 뒤 남의 나라 이집트에서 벽돌을 굽고 있었습니다. <a href="02.html">지난 장</a>의 마지막 장면입니다.</p>
+    <p class="bk-from">약속을 받은 집안이 약 400년 뒤 남의 나라 이집트에서 벽돌을 굽고 있었습니다. <a href="02.html">지난 장</a>의 마지막 장면입니다. 오늘 한 단어만 가져가시면 됩니다. <strong>건져냄</strong>입니다.</p>
   </header>
 
   <!-- ════════ B3 학습 목표 ════════ -->
@@ -101,6 +94,7 @@
 
   <!-- ════════ 도해 · 그림 1 · 오늘 지나갈 길 ════════ -->
   <figure class="bk-fig3">
+    <span class="bk-lbl">그림 1 · 오늘 지나갈 길</span>
     <!-- role="list" — `list-style:none` 이 걸린 목록은 사파리에서 목록 의미를 잃는다.
          이 그림은 「1에서 6까지」라는 순서가 곧 내용이라 그 의미가 사라지면 안 된다. -->
     <ol class="bk-trip" role="list">
@@ -111,7 +105,7 @@
       <li><b><span class="n">5</span>성막</b><span class="d">백성 한가운데 치신 천 텐트</span></li>
       <li><b><span class="n">6</span>약속된 땅의 문턱</b><span class="d">40일이 40년이 됩니다</span><span class="t">여기서부터 40년</span></li>
     </ol>
-    <figcaption><span class="bk-fig3__no">그림 1</span>1에서 6까지가 오늘 지나갈 길입니다 — 몸이 나오는 데는 하룻밤, 마음이 나오는 데는 40년이 걸립니다.</figcaption>
+    <figcaption>1에서 6까지가 오늘 지나갈 길입니다 — 몸이 나오는 데는 하룻밤, 마음이 나오는 데는 40년이 걸립니다.</figcaption>
   </figure>
 
   <!-- ════════ B5 장면 ① ════════ -->
@@ -216,7 +210,7 @@
        이 장에서 「여호와」는 인용문에만 다섯 번 나오고(출 14:14 · 20:2 · 24:3 ·
        40:34 · 민 21:6) 한 번도 풀리지 않았다. 서술은 내내 「하나님」이라 처음
        읽는 사람에게는 등장인물이 둘로 늘어난다 — 애굽↔이집트와 같은 자리다.
-       뜻풀이 본체는 1장에 있으므로(사양 §4-4 이원 배치) 여기서는 접어 두고
+       뜻풀이 본체는 1장에 있으므로 여기서는 접어 두고
        1장으로 가는 길만 낸다. 문안은 02.html 낱말 띠와 같은 문장이다. -->
   <details class="bk-term">
     <summary>낱말 · 여호와</summary>
@@ -248,6 +242,7 @@
 
   <!-- ════════ 도해 · 그림 2 · 무엇이 먼저인가 ════════ -->
   <figure class="bk-fig3">
+    <span class="bk-lbl">그림 2 · 무엇이 먼저인가</span>
     <div class="bk-order">
       <div class="bk-order__row">
         <b class="bk-order__ttl">본문이 말하는 순서 · 실선</b>
@@ -258,7 +253,7 @@
         <p class="bk-order__steps"><span>1 잘 지킴</span><em>▶</em><span>2 그분의 백성이 됨</span></p>
       </div>
     </div>
-    <figcaption><span class="bk-fig3__no">그림 2</span>무엇이 먼저 오느냐 하나로 갈립니다 — 십계명도 첫 계명보다 '인도하여 낸 네 하나님'이 먼저입니다.</figcaption>
+    <figcaption>무엇이 먼저 오느냐 하나로 갈립니다 — 십계명도 첫 계명보다 '인도하여 낸 네 하나님'이 먼저입니다.</figcaption>
   </figure>
 
   <!-- ════════ B5 장면 ⑥ ════════ -->
@@ -283,6 +278,7 @@
 
   <!-- ════════ 도해 · 그림 3 · 텐트를 치신 자리 ════════ -->
   <figure class="bk-fig3">
+    <span class="bk-lbl">그림 3 · 텐트를 치신 자리</span>
     <div class="bk-camp">
       <span class="bk-camp__lbl">백성</span>
       <div class="bk-camp__row" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -293,7 +289,7 @@
       </div>
       <div class="bk-camp__row" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     </div>
-    <figcaption><span class="bk-fig3__no">그림 3</span>하나님이 백성 한가운데 치신 것은 돌 건물이 아니라 천 텐트였습니다.</figcaption>
+    <figcaption>하나님이 백성 한가운데 치신 것은 돌 건물이 아니라 천 텐트였습니다.</figcaption>
   </figure>
 
   <!-- ════════ B8 여기까지 ② ════════ -->
@@ -326,6 +322,7 @@
 
   <!-- ════════ 도해 · 그림 4 · 성경이 쓴 지면 ════════ -->
   <figure class="bk-fig3">
+    <span class="bk-lbl">그림 4 · 성경이 쓴 지면</span>
     <div class="bk-span">
       <!-- 두 칸을 색으로 가르지 않는다: 넓이(1차) + 채움 패턴(2차) + 괄호 안 글자 라벨(3차).
            채움/사선이라는 글자를 띠 위에 직접 달아 캡션을 못 읽어도 무늬가 해독되게 한다. -->
@@ -335,7 +332,7 @@
       </div>
       <p class="bk-span__ends"><span>출애굽기 12장</span><span>신명기 끝</span></p>
     </div>
-    <figcaption><span class="bk-fig3__no">그림 4</span>띠 하나가 출애굽기 12장부터 신명기 끝까지입니다 — 왼쪽 좁은 칸(채움)이 빠져나오는 이야기, 오른쪽 넓은 칸(사선)이 광야에서 함께 지낸 이야기입니다.</figcaption>
+    <figcaption>띠 하나가 출애굽기 12장부터 신명기 끝까지입니다 — 왼쪽 좁은 칸(채움)이 빠져나오는 이야기, 오른쪽 넓은 칸(사선)이 광야에서 함께 지낸 이야기입니다.</figcaption>
   </figure>
 
   <!-- ════════ B5 장면 ⑧ ════════ -->
@@ -347,7 +344,7 @@
        갈라 놓아서 ⓐ 바로 앞 문장 「보고가 둘로 갈립니다」가 눈으로는 '갈린 하나'가
        아니라 '따로 온 둘'이 되고, 뒤 문장 「두 보고가 본 것은 같습니다」를 읽을 때
        독자가 두 상자를 머리로 다시 붙여야 했다. ⓑ 이 장면에 성경 상자가 넷이 서서
-       리듬 계약(사양 §7 · 400~650자에 1개)이 이 장에서 가장 크게 깨졌다 —
+       성경 카드 사이 간격 규칙(400~650자에 1개)이 이 장에서 가장 크게 깨졌다 —
        두 카드 사이 본문이 0자였다.
        인용문·장절·순서는 한 글자도 바뀌지 않는다. 상자만 원고대로 하나로 되돌린다. -->
   <blockquote class="bk-scr">
@@ -459,7 +456,7 @@
   </div>
   <!-- 칩 범례 — ●○ 는 CSS content 라 페이지 안에 뜻을 풀 자리가 없었다.
        글자로 한 줄 두어 기호가 해독되게 한다(01·02.html 과 같은 문안·색 의존 0). -->
-  <p class="bk-threads__legend">● 이 장에서 움직인 실 · ○ 이 장에서는 쉬는 실</p>
+  <p class="bk-threads__legend">● 이 장에서 움직인 실 · ○ 이 장에서는 쉬는 실 · 네 실의 이름은 <a href="00.html">0장</a>에서 소개했습니다</p>
   <p class="bk-thread"><b>언약</b> — 2장에서 한 사람에게 걸렸던 약속이 한 민족과 맺는 계약으로 커집니다. 시작이 "기억하사"였고, 잉크가 마르기도 전에 깨진 그 언약 뒤에 지어진 것이 성막이었습니다.</p>
   <p class="bk-thread"><b>임재</b> — 1장에서 정원의 동행이 끊긴 뒤, 여기서 다시 이어집니다. 다만 모양이 달라졌습니다. <strong>정원 → 텐트.</strong></p>
   <p class="bk-thread"><b>정체성</b> — 노예에게는 이름이 없고 작업량만 있습니다. 이 장에서 그들은 처음으로 <strong>누구의 백성</strong>이라고 불립니다.</p>
