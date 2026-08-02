@@ -3,151 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>12시대 · 성경 전체를 한 이야기로</title>
-<meta name="description" content="성경 66권을 열두 시대로 나눠 하나의 이야기로 따라가는 교재입니다. 성경을 처음 읽는 분도 혼자 읽을 수 있습니다.">
+<title>『12시대』 · 차례</title>
+<!-- 이 책은 링크로 건네진다. 카카오톡·문자에 뜨는 미리보기 카드가 사실상 표지다.
+     아래 설명 두 줄은 여는 장 본문에서 그대로 잘라 온 것이다(새 문장 0건).
+       · "성경은 한 권이 아니라 66권을 묶은 책입니다"      → 여는 장 「66권짜리 도서관」
+       · "처음과 끝이 ‘함께 있다’로 같고 …"                → 여는 장 「한눈에」 한 줄 -->
+<meta name="description" content="『12시대』 학생용. 성경은 한 권이 아니라 66권을 묶은 책입니다. 처음과 끝이 ‘함께 있다’로 같고, 그 사이는 깨졌다가 되찾아지는 과정입니다. 여는 장부터 3장까지 열려 있습니다.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="『12시대』">
-<meta property="og:title" content="12시대 · 성경 전체를 한 이야기로">
-<meta property="og:description" content="성경 66권을 열두 시대로 나눠, 처음부터 끝까지 하나의 이야기로 따라가는 교재입니다. 성경을 한 번도 읽어 보지 않으셔도 됩니다.">
+<meta property="og:site_name" content="『12시대』 학생용">
+<meta property="og:title" content="12시대 · 성경 66권을, 열두 칸의 한 이야기로">
+<meta property="og:description" content="처음과 끝이 ‘함께 있다’로 같고, 그 사이는 깨졌다가 되찾아지는 과정입니다. 성경을 한 번도 읽어 보지 않으셔도 됩니다.">
 <meta property="og:url" content="https://joytrustlove.github.io/12sidae/">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-/* 표지 국소 보정 — 장 페이지 컴포넌트를 그대로 쓰되, 목차에만 필요한 두 가지를 얹는다.
-   ① 장 카드: 번호·제목·한 단어·소개·상태를 한 줄로. 상태는 색이 아니라 라벨·모양으로 구분한다.
-   ② 준비 중인 장은 회색 + 점선 + '준비 중' 글자 라벨 3중으로 표시한다. */
-.ix-list{list-style:none;padding:0;margin:0;display:grid;gap:.75rem}
-.ix-card{display:grid;grid-template-columns:3.2rem 1fr;gap:1rem;align-items:start;
-  padding:1rem 1.1rem;border:1px solid currentColor;border-radius:.6rem;text-decoration:none;color:inherit}
-.ix-card:hover,.ix-card:focus-visible{outline:2px solid currentColor;outline-offset:2px}
-.ix-num{font-size:1.5rem;font-weight:800;line-height:1;text-align:center;padding-top:.15rem}
-.ix-num small{display:block;font-size:.6rem;font-weight:700;letter-spacing:.04em;margin-top:.25rem}
-.ix-t{font-weight:700;font-size:1.06rem;margin:0 0 .2rem}
-.ix-d{margin:0;font-size:.92rem;opacity:.85}
-.ix-meta{margin:.35rem 0 0;font-size:.8rem;opacity:.75}
-.ix-soon{border-style:dashed;opacity:.62}
-.ix-badge{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.04em;
-  border:1px solid currentColor;border-radius:999px;padding:.05rem .5rem;margin-left:.35rem;vertical-align:.1em}
-.ix-how{display:grid;gap:.5rem;margin:0;padding:0;list-style:none}
-.ix-how li{padding-left:1.4rem;position:relative}
-.ix-how li::before{content:"—";position:absolute;left:0;font-weight:700}
+/* ═══════════════════════════════════════════════════════════════════════════
+   차례 지면 전용 (`.ix-*`) — 덧쓰기 전용이다. assets/style.css 는 한 줄도 고치지 않았다.
+   접두사가 전부 `.ix-` 라 0~3장 지면에는 한 픽셀도 닿지 않는다.
+
+   🔴 요소 7종의 테두리 문법을 잠식하지 않는다.
+      이 지면이 새로 만드는 상자는 「차례 칸」 하나뿐이고, 그 상자는
+      1px 실선 + 4px 각진 모서리 = `.bk-next`(길 안내 단추)와 같은 문법이다.
+        활동 = 1.5px 실선 + 14px 둥근 모서리   ← 명확히 다르다
+        한눈에 = 2px 실선 + 각진 모서리        ← 굵기가 다르다
+        복선 = 파선 + 모자 + 봉인 ◈            ← 다르다
+      「이 책을 여는 글」에는 상자·라벨·글리프를 하나도 쓰지 않는다
+      (저자 목소리에 학습 장치를 얹으면 그 글의 성격이 바뀐다).
+
+   🔴 구분은 [모양 + 글자 라벨 + 색] 3중이다. 색만으로 갈리는 것이 하나도 없다.
+      열린 칸  = 2px 실선 테두리 + 「열림」 글자   + 진한 잉크
+      준비 중  = 1px 점선 테두리 + 「준비 중」 글자 + 옅은 잉크(4.90:1)
+      링크     = 밑줄(모양)로 표시한다. 링크 색은 본문색으로 되돌린다.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 표지 ─────────────────────────────────────────────────────────────────── */
+.ix-cover{padding:calc(var(--u)*2) 0 calc(var(--u)*3);border-bottom:2px solid var(--ink);}
+.ix-cover .bk-h1{font-size:clamp(2.1rem,8vw,2.9rem);letter-spacing:-.02em;}
+.ix-sub{margin:calc(var(--u)*1.5) 0 0;font-size:1.05rem;font-weight:700;line-height:1.6;}
+.ix-lede{margin:calc(var(--u)*2) 0 0;color:var(--ink-2);}
+.ix-src{display:block;margin-top:calc(var(--u)*.6);font-size:12.5px;color:var(--ink-3);}
+.ix-skip{margin:calc(var(--u)*2.5) 0 0;font-size:14px;}
+.ix-skip a{color:inherit;text-decoration:underline;text-underline-offset:3px;
+  display:inline-block;min-height:24px;line-height:24px;}
+
+/* ── 저자의 글 · 세 가지 약속 — 상자를 만들지 않는다 ──────────────────────── */
+.ix-front p{margin:0 0 calc(var(--u)*2);}
+.ix-promise{list-style:none;margin:calc(var(--u)*2) 0 0;padding:0;}
+.ix-promise li{margin:0 0 calc(var(--u)*2.5);}
+.ix-promise li:last-child{margin-bottom:0;}
+.ix-promise b{display:block;font-size:1rem;}
+.ix-promise span{display:block;margin-top:2px;color:var(--ink-2);font-size:15.5px;line-height:1.75;}
+
+/* ── 읽는 법 ──────────────────────────────────────────────────────────────── */
+.ix-how{list-style:none;margin:calc(var(--u)*2) 0 0;padding:0;}
+.ix-how li{position:relative;padding-left:1.2em;margin:0 0 calc(var(--u)*1.6);line-height:1.8;}
+.ix-how li::before{content:"—";position:absolute;left:0;font-weight:700;color:var(--ink-3);}
+.ix-how li:last-child{margin-bottom:0;}
+
+/* ── 열두 칸 지도 — 색이 아니라 [테두리 종류 + 글자 라벨 + 잉크 농도]로 가른다 ── */
+.ix-map li em{display:block;font-style:normal;font-size:9.5px;font-weight:700;
+  letter-spacing:.02em;line-height:1.5;margin-top:3px;}
+.ix-map li.is-open{border:2px solid var(--ink);color:var(--ink);}
+.ix-map li.is-open b{color:var(--ink);}
+.ix-map li.is-open em{color:var(--ink);}
+/* 준비 중 칸의 점선은 「준비 중」이라는 뜻을 지고 있는 선이다.
+   기본값 --rule(#d8d5cd)은 흰 종이에서 1.47:1 이라 뜻을 지기에 너무 옅다.
+   색을 바꾸지 않고 잉크 농도만 --ink-3(4.90:1)로 올린다 — 적록 조합은 여전히 0건이고
+   실선 ↔ 점선 구분도 그대로다. 00.html 이 그림 3 눈금에 내린 판단과 같은 수법이다. */
+.ix-map li.is-soon{border:1px dashed var(--ink-3);color:var(--ink-3);}
+.ix-map li.is-soon em{color:var(--ink-3);}
+.ix-mapkey{margin:0 0 calc(var(--u)*2);font-size:13.5px;line-height:1.7;color:var(--ink-2);}
+.ix-mapfoot{margin:calc(var(--u)*1.5) 0 0;font-size:13px;font-weight:700;color:var(--ink-2);}
+.ix-more{margin:calc(var(--u)*2) 0 0;font-size:13px;color:var(--ink-3);}
+.ix-more a{color:inherit;display:inline-block;min-height:24px;line-height:24px;}
+
+/* ── 차례 칸 ──────────────────────────────────────────────────────────────── */
+.ix-list{list-style:none;margin:calc(var(--u)*2) 0 0;padding:0;}
+.ix-list > li{margin:0 0 10px;}
+.ix-list > li:last-child{margin-bottom:0;}
+.ix-card{display:grid;grid-template-columns:3.6rem 1fr;gap:0 14px;align-items:start;
+  padding:14px 16px;border:1px solid var(--ink-3);border-radius:4px;
+  color:inherit;text-decoration:none;min-height:44px;}
+.ix-num{font-size:1.55rem;font-weight:800;line-height:1.1;text-align:center;}
+.ix-num small{display:block;font-size:.62rem;font-weight:700;letter-spacing:.03em;
+  line-height:1.4;margin-top:4px;color:var(--ink-2);}
+.ix-t{margin:0 0 4px;font-size:1.05rem;font-weight:700;line-height:1.45;
+  text-decoration:underline;text-underline-offset:3px;}
+.ix-d{margin:0;font-size:15px;line-height:1.7;color:var(--ink-2);}
+.ix-meta{margin:6px 0 0;font-size:12.5px;color:var(--ink-3);}
+a.ix-card:hover .ix-t,a.ix-card:focus-visible .ix-t{text-decoration-thickness:2px;}
+/* 준비 중 칸 — 흐림(opacity)을 쓰지 않는다. 저시력 독자에게 흐릿함은
+   "안 눌리는 것"이 아니라 "안 보이는 것"이 된다(style.css §26-1 과 같은 판단). */
+.ix-card--soon{border-style:dashed;border-color:var(--ink-3);color:var(--ink-3);}
+.ix-card--soon .ix-t{text-decoration:none;color:var(--ink-2);}
+.ix-card--soon .ix-num small{color:var(--ink-3);}
+.ix-badge{display:inline-block;margin-left:6px;padding:1px 9px;
+  border:1px solid currentColor;border-radius:999px;
+  font-size:11.5px;font-weight:700;letter-spacing:.03em;vertical-align:.12em;
+  white-space:nowrap;color:var(--ink-2);}
+
+/* ── 지면에서 만나는 표시 (범례) ──────────────────────────────────────────── */
+.ix-legend{margin:calc(var(--u)*2) 0 0;}
+.ix-legend > div{padding:10px 0;border-bottom:1px solid var(--rule);}
+.ix-legend > div:last-child{border-bottom:none;}
+.ix-legend dt{font-size:15px;font-weight:700;}
+.ix-legend dt .gl{margin-right:6px;color:var(--ink-2);}
+.ix-legend dd{margin:2px 0 0;font-size:14.5px;line-height:1.7;color:var(--ink-2);}
+
+/* ── 좁은 화면 ────────────────────────────────────────────────────────────── */
+@media (max-width:640px){
+  .ix-card{grid-template-columns:3rem 1fr;gap:0 12px;padding:13px 14px;}
+  .ix-num{font-size:1.35rem;}
+  .ix-t{font-size:1rem;}
+}
+
+/* ── 인쇄 — 배경 채움에 의존하지 않는다. 색이 빠져도 선 종류와 글자가 남는다 ── */
+@media print{
+  .ix-skip{display:none;}
+  .ix-cover{border-bottom-color:#000;}
+  .ix-map li.is-open{border-color:#000;}
+  .ix-map li.is-soon{border-color:#888;}
+  .ix-map li em,.ix-src,.ix-meta,.ix-mapkey,.ix-legend dd,.ix-promise span{color:#000;}
+  .ix-card{border-color:#888;color:#000;}
+  .ix-card--soon{border-color:#888;border-style:dashed;color:#000;}
+  .ix-card--soon .ix-t,.ix-badge{color:#000;}
+  .ix-t{text-decoration:none;}
+  .ix-legend > div{border-bottom-color:#888;break-inside:avoid;}
+  .ix-list > li{break-inside:avoid;}
+}
 </style>
 </head>
 <body>
 
 <article class="bk-page">
 
-  <header class="bk-opener bk-full">
-    <div class="bk-no">교재</div>
-    <h1 class="bk-h1">12시대</h1>
-    <p><span class="bk-oneword">성경 전체를 한 이야기로</span></p>
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ① 표지 — 링크를 받은 사람이 처음 보는 화면
+       ════════════════════════════════════════════════════════════════════════ -->
+  <p class="bk-half">『12시대』 · 학생용 <span>차례</span></p>
 
-    <ul class="bk-map" aria-label="열두 시대 지도">
-      <li><b>1</b><i>원역사</i></li>
-      <li><b>2</b><i>족장</i></li>
-      <li><b>3</b><i>출애굽·광야</i></li>
-      <li><b>4</b><i>가나안</i></li>
-      <li><b>5</b><i>사사</i></li>
-      <li><b>6</b><i>단일왕국</i></li>
-      <li><b>7</b><i>분열왕국</i></li>
-      <li><b>8</b><i>포로</i></li>
-      <li><b>9</b><i>포로귀환</i></li>
-      <li><b>10</b><i>예수</i></li>
-      <li><b>11</b><i>교회</i></li>
-      <li><b>12</b><i>새 하늘과 새 땅</i></li>
-    </ul>
-    <div class="bk-mapnow">지금 열려 있는 곳 · 여는 장 ~ 3장</div>
+  <header class="ix-cover">
+    <h1 class="bk-h1">12시대</h1>
+    <p class="ix-sub">성경 66권을, 열두 칸의 한 이야기로</p>
+    <!-- 아래 한 줄은 여는 장 「한눈에」의 한 줄을 그대로 옮긴 것이다(새 문장 0건). -->
+    <p class="ix-lede">처음과 끝이 ‘함께 있다’로 같고, 그 사이는 깨졌다가 되찾아지는 과정입니다.
+      <span class="ix-src">여는 장 「한눈에」에서</span></p>
+    <p class="ix-skip"><a href="#toc">차례로 바로 가기</a></p>
   </header>
 
-  <section class="bk-goal">
-    <span class="bk-lbl">이 교재는</span>
-    <p class="lead">성경 66권을 <b>열두 시대</b>로 나눠, 처음부터 끝까지 <b>하나의 이야기</b>로 따라가 봅니다.</p>
-    <ol>
-      <li>성경을 한 번도 읽어 보지 않으셔도 됩니다. 아는 것을 전제하지 않습니다.</li>
-      <li>여기서 무엇을 결정하실 필요는 없습니다. 믿으라고 말씀드리는 자리가 아닙니다.</li>
-      <li>해석이 갈리는 곳에서는 "이게 정답입니다" 대신 <b>여러 견해가 있다</b>고 적었습니다.</li>
-    </ol>
-  </section>
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ② 이 책을 여는 글 — 저자가 직접 쓴 글이다.
+          상자·라벨·글리프를 하나도 얹지 않는다. 글자는 원고 그대로다.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section class="ix-front" aria-labelledby="hd-front">
+    <h2 class="bk-corner" id="hd-front">이 책을 여는 글</h2>
 
-  <h2>읽는 법</h2>
-  <ul class="ix-how">
-    <li>한 장은 <b>10분 안팎</b>입니다. 순서대로 읽으시면 이야기가 이어집니다.</li>
-    <li>중간에 <b>「여기까지」</b>가 나옵니다. 답이 떠오르지 않으셔도 괜찮습니다. 확인용이지 시험이 아닙니다.</li>
-    <li>모르는 낱말은 그 자리에서 풀어 두었습니다. 따로 찾아보실 필요 없습니다.</li>
-    <li>휴대폰으로 읽으셔도 되고, 인쇄하셔도 됩니다.</li>
-  </ul>
-
-  <h2>차례</h2>
-  <ul class="ix-list">
-
-    <li><a class="ix-card" href="00.html">
-      <span class="ix-num">0<small>여는 장</small></span>
-      <span>
-        <p class="ix-t">성경이라는 도서관</p>
-        <p class="ix-d">66권짜리 책 묶음이 왜 한 편의 이야기로 읽히는가. 전체 지도를 먼저 폅니다.</p>
-        <p class="ix-meta">한 단어 · 계획 &nbsp;|&nbsp; 약 10분</p>
-      </span>
-    </a></li>
-
-    <li><a class="ix-card" href="01.html">
-      <span class="ix-num">1<small>원역사</small></span>
-      <span>
-        <p class="ix-t">모든 것이 어긋나기 시작한 자리</p>
-        <p class="ix-d">한 사람의 선택이 세대를 건너 번져 갑니다. 가인은 숨었고, 라멕은 읊었습니다.</p>
-        <p class="ix-meta">한 단어 · 번짐 &nbsp;|&nbsp; 약 12분</p>
-      </span>
-    </a></li>
-
-    <li><a class="ix-card" href="02.html">
-      <span class="ix-num">2<small>족장</small></span>
-      <span>
-        <p class="ix-t">흩어진 인류 가운데 한 사람을</p>
-        <p class="ix-d">25년, 13년, 23년. 약속을 받은 사람들은 하나같이 못 견뎠는데도 약속은 지켜집니다.</p>
-        <p class="ix-meta">한 단어 · 신실하심 &nbsp;|&nbsp; 약 11분</p>
-      </span>
-    </a></li>
-
-    <li><a class="ix-card" href="03.html">
-      <span class="ix-num">3<small>출애굽·광야</small></span>
-      <span>
-        <p class="ix-t">노예를 건져내고, 다시 빚으시다</p>
-        <p class="ix-d">빠져나오는 데는 세 장, 다시 만들어지는 데는 거의 네 권이 걸립니다.</p>
-        <p class="ix-meta">한 단어 · 건져냄 &nbsp;|&nbsp; 약 12분</p>
-      </span>
-    </a></li>
-
-    <li><span class="ix-card ix-soon" aria-disabled="true">
-      <span class="ix-num">4~12<small>준비 중</small></span>
-      <span>
-        <p class="ix-t">가나안 정복부터 새 하늘과 새 땅까지<span class="ix-badge">준비 중</span></p>
-        <p class="ix-d">이어서 만들고 있습니다. 10장에서 앞 장들에 심어 둔 것들을 한꺼번에 거둡니다.</p>
-        <p class="ix-meta">아직 열리지 않았습니다</p>
-      </span>
-    </span></li>
-
-  </ul>
-
-  <section class="bk-check">
-    <span class="bk-lbl">이 교재를 여는 글</span>
     <p>지금까지 걸어온 길을 돌아보면, 제 힘으로 된 것이 하나도 없었습니다.<br>
     전부 은혜였습니다.</p>
+
     <p>그래서 저는 그 은혜를 조금 더 깊이 알고 싶었습니다.<br>
     그런데 하나씩 들여다보다 보니, 마음에 한 가지가 더 붙었습니다.<br>
-    <b>이걸 나만 알고 끝내면 안 되겠다</b>는 것이었습니다.</p>
+    <strong>이걸 나만 알고 끝내면 안 되겠다</strong>는 것이었습니다.</p>
+
     <p>언제일지는 모르겠습니다.<br>
     다만 어떤 자리에서, 어떤 사람에게 이 이야기를 전할 기회가 찾아왔을 때<br>
     그때 제대로 전할 수 있는 사람이고 싶었습니다.<br>
     그러려면 제가 먼저 더 알아야 했습니다.</p>
-    <p>이 교재는 그래서 만들었습니다.</p>
-    <p>잘 아는 사람이 가르치려고 쓴 것이 아닙니다.<br>
-    <b>더 알고 싶어서 정리하다 보니, 남에게도 보여 드리고 싶어진 것</b>입니다.</p>
+
+    <p>이 책은 그래서 만들었습니다.</p>
+
+    <p>잘 아는 사람이 가르치려고 쓴 책이 아닙니다.<br>
+    <strong>더 알고 싶어서 정리하다 보니, 남에게도 보여 드리고 싶어진 책</strong>입니다.</p>
+
     <p>읽어 주셔서 감사합니다.</p>
   </section>
 
-  <footer class="bk-foot">
-    <p>『12시대』 · 여는 장 ~ 3장 공개 · 이어서 제작 중</p>
-  </footer>
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ③ 세 가지 약속 — 여는 장 「이 책이 드리는 세 가지 약속」에서 그대로 옮겼다.
+          결단을 요구하지 않는다는 것을 표지에서 먼저 밝힌다.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <h2 class="bk-corner">이 책이 드리는 세 가지 약속</h2>
+  <ol class="ix-promise">
+    <li><b>첫째, 강요하지 않습니다.</b>
+      <span>“믿으셔야 합니다”라는 문장을 이 책에서는 쓰지 않겠습니다. 저는 이 이야기를 소개하는 사람이고, 판단은 읽는 분이 하십니다.</span></li>
+    <li><b>둘째, 모르는 것은 모른다고 하겠습니다.</b>
+      <span>해석이 갈리는 곳에서는 “이것이 정답입니다” 대신 “여러 견해가 있고, 우리가 따르는 견해는 이것입니다”라고 쓰겠습니다.</span></li>
+    <li><b>셋째, 믿지 않으신다는 사실을 문제로 취급하지 않겠습니다.</b>
+      <span>여기서 무엇을 결정하실 필요는 없습니다. 읽어만 보셔도 됩니다.</span></li>
+  </ol>
+  <p class="ix-more">세 약속의 전문은 <a href="00.html">여는 장</a>에 있습니다.</p>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ④ 읽는 법
+       ════════════════════════════════════════════════════════════════════════ -->
+  <h2 class="bk-corner">읽는 법</h2>
+  <ul class="ix-how">
+    <li><b>순서대로 읽으시면 이야기가 이어집니다.</b> 각 장은 앞 장에서 받아 온 한 줄로 시작합니다. 여는 장(0장)부터 읽으시는 편이 가장 편합니다.</li>
+    <li><b>한 장은 8분에서 11분쯤입니다.</b> 글자 수로 어림한 것이라 사람마다 다릅니다. 하루에 한 장씩 끊어 읽으셔도 됩니다.</li>
+    <li><b>장 안에 「여기까지」가 한두 번 나옵니다.</b> 답을 적는 칸은 없습니다. 떠오르지 않으셔도 괜찮습니다. 되돌아가 볼 자리를 함께 적어 두었습니다.</li>
+    <li><b>모르는 낱말은 처음 나오는 자리에서 바로 풀어 두었습니다.</b> 따로 찾아보실 필요 없습니다.</li>
+    <li><b>「멀리 보이는 그분」은 지금 풀지 않는 예고입니다.</b> 읽으시다가 “이거 나중에 또 나오겠는데” 싶은 게 생기시면, 맞습니다.</li>
+    <li><b>화면 위쪽의 띠는 지금이 열두 칸 가운데 몇 번째인지 알려 줍니다.</b> 되돌아오실 때 자리를 찾는 표시입니다.</li>
+    <li><b>휴대폰으로 읽으셔도 되고, 인쇄하셔도 됩니다.</b> 인쇄하면 「나를 돌아보기」와 「함께 이야기해 볼 질문」 아래에 적을 줄이 함께 나옵니다.</li>
+  </ul>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ⑤ 열두 칸 지도 — 정보 표시 전용(칸에 링크를 걸지 않는다).
+          지도의 모양(6×2)은 좁은 화면에서도 유지한다. 모양 자체가 기억의 단서다.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <h2 class="bk-corner">열두 칸 지도</h2>
+  <p class="ix-mapkey">여는 장에서 이 지도를 한 번 펴고, 그다음부터 한 칸씩 걸어갑니다.
+    지금은 <b>1 · 2 · 3 세 칸이 열려 있고</b>, 나머지 아홉 칸은 만들고 있습니다.
+    열린 칸은 <b>굵은 실선 테두리에 「열림」</b>, 준비 중인 칸은 <b>점선 테두리에 「준비 중」</b>으로 적어 두었습니다.</p>
+
+  <ul class="bk-map ix-map bk-full" aria-label="열두 시대 지도 · 1~3은 열림, 4~12는 준비 중">
+    <li class="is-open"><b>1</b><i>원역사</i><em>열림</em></li>
+    <li class="is-open"><b>2</b><i>족장</i><em>열림</em></li>
+    <li class="is-open"><b>3</b><i>출애굽·광야</i><em>열림</em></li>
+    <li class="is-soon"><b>4</b><i>가나안</i><em>준비 중</em></li>
+    <li class="is-soon"><b>5</b><i>사사</i><em>준비 중</em></li>
+    <li class="is-soon"><b>6</b><i>단일왕국</i><em>준비 중</em></li>
+    <li class="is-soon"><b>7</b><i>분열왕국</i><em>준비 중</em></li>
+    <li class="is-soon"><b>8</b><i>포로</i><em>준비 중</em></li>
+    <li class="is-soon"><b>9</b><i>포로귀환</i><em>준비 중</em></li>
+    <li class="is-soon"><b>10</b><i>예수</i><em>준비 중</em></li>
+    <li class="is-soon"><b>11</b><i>교회</i><em>준비 중</em></li>
+    <li class="is-soon"><b>12</b><i>새 하늘과 새 땅</i><em>준비 중</em></li>
+  </ul>
+  <p class="ix-mapfoot">여는 장(0장)은 열두 칸 밖입니다 · 걷기 전에 지도를 펴는 시간</p>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ⑥ 차례
+       ════════════════════════════════════════════════════════════════════════ -->
+  <h2 class="bk-corner" id="toc">차례</h2>
+  <ul class="ix-list">
+
+    <li><a class="ix-card" href="00.html">
+      <div class="ix-num">0<small>여는 장</small></div>
+      <div>
+        <p class="ix-t">성경이라는 도서관</p>
+        <p class="ix-d">처음과 끝이 ‘함께 있다’로 같고, 그 사이는 깨졌다가 되찾아지는 과정입니다.</p>
+        <p class="ix-meta">한 단어 · 계획 &nbsp;|&nbsp; 8분쯤 &nbsp;|&nbsp; 열림</p>
+      </div>
+    </a></li>
+
+    <li><a class="ix-card" href="01.html">
+      <div class="ix-num">1<small>원역사</small></div>
+      <div>
+        <p class="ix-t">모든 것이 어긋나기 시작한 자리</p>
+        <p class="ix-d">번짐은 행동이 커지는 것이 아니라 감각이 무뎌지는 것입니다.</p>
+        <p class="ix-meta">한 단어 · 번짐 &nbsp;|&nbsp; 11분쯤 &nbsp;|&nbsp; 열림</p>
+      </div>
+    </a></li>
+
+    <li><a class="ix-card" href="02.html">
+      <div class="ix-num">2<small>족장</small></div>
+      <div>
+        <p class="ix-t">흩어진 인류 가운데 한 사람을</p>
+        <p class="ix-d">속인 사람도, 못 기다린 사람도 잘 견디지 못했는데 약속은 지켜집니다. 근거는 약속한 쪽의 신실하심입니다.</p>
+        <p class="ix-meta">한 단어 · 신실하심 &nbsp;|&nbsp; 10분쯤 &nbsp;|&nbsp; 열림</p>
+      </div>
+    </a></li>
+
+    <li><a class="ix-card" href="03.html">
+      <div class="ix-num">3<small>출애굽·광야</small></div>
+      <div>
+        <p class="ix-t">노예를 건져내고, 다시 빚으시다</p>
+        <p class="ix-d">건져내는 데 세 장이 들었고, 다시 빚는 데 네 권이 들었습니다.</p>
+        <p class="ix-meta">한 단어 · 건져냄 &nbsp;|&nbsp; 10분쯤 &nbsp;|&nbsp; 열림</p>
+      </div>
+    </a></li>
+
+    <li><div class="ix-card ix-card--soon">
+      <div class="ix-num">4~12<small>아홉 칸</small></div>
+      <div>
+        <p class="ix-t">가나안부터 새 하늘과 새 땅까지<span class="ix-badge">준비 중</span></p>
+        <p class="ix-d">이어서 만들고 있습니다. 앞 장들에 심어 둔 것은 10장에서 한꺼번에 거둡니다.</p>
+        <p class="ix-meta">아직 열리지 않았습니다</p>
+      </div>
+    </div></li>
+
+  </ul>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ⑦ 지면에서 만나는 표시 — 일곱 가지의 겉모습을 미리 알려 둔다.
+          🔴 여기 적힌 모양 설명은 전부 실제 지면의 테두리 문법과 같다.
+             색 이름을 쓰지 않는다 — 색으로 찾게 만들면 색약인 독자에게 길잡이가 안 된다.
+       ════════════════════════════════════════════════════════════════════════ -->
+  <h2 class="bk-corner">지면에서 만나는 표시</h2>
+  <p class="ix-mapkey">일곱 가지가 반복해서 나옵니다. 겉모습이 서로 다르니 이름을 몰라도 눈으로 갈립니다.</p>
+
+  <dl class="ix-legend">
+    <div>
+      <dt><span class="gl" aria-hidden="true">▌</span>성경</dt>
+      <dd>왼쪽에 세로 겹선이 있고 글꼴이 바뀝니다. 성경을 그대로 옮긴 자리입니다. 오른쪽 아래에 어디서 왔는지 적혀 있습니다.</dd>
+    </div>
+    <div>
+      <dt><span class="gl" aria-hidden="true">◆</span>낱말</dt>
+      <dd>위아래로 점선이 있고 글씨가 작습니다. 처음 나오는 낱말의 뜻을 그 자리에서 풀어 둔 곳입니다.</dd>
+    </div>
+    <div>
+      <dt><span class="gl" aria-hidden="true">✓</span>여기까지</dt>
+      <dd>위아래로 파선이 있습니다. 여기까지 나온 것을 한 줄로 모아 둔 중간 점검입니다. 답을 적는 칸은 없습니다.</dd>
+    </div>
+    <div>
+      <dt><span class="gl" aria-hidden="true">▲</span>여기가 핵심</dt>
+      <dd>위아래로 겹선이 있고 글씨가 큽니다. 그 장에서 가장 중요하다고 말하는 한 마디입니다. 장마다 한 번뿐입니다.</dd>
+    </div>
+    <div>
+      <dt><span class="gl" aria-hidden="true">✎ ◎</span>나를 돌아보기 · 함께 이야기해 볼 질문</dt>
+      <dd>네 면이 실선이고 모서리가 둥근 상자입니다. 이 책에서 직접 해 보시는 자리는 여기뿐입니다. 마음속으로만 답하셔도 됩니다.</dd>
+    </div>
+    <div>
+      <dt><span class="gl" aria-hidden="true">☾ ◈</span>멀리 보이는 그분</dt>
+      <dd>네 면이 파선이고 위에 굵은 줄(모자)이 얹혀 있으며 오른쪽 위에 봉인이 있습니다. 나중에 다시 나온다는 예고이고, 지금은 풀지 않습니다.</dd>
+    </div>
+    <div>
+      <dt><span class="gl" aria-hidden="true">▤</span>한눈에</dt>
+      <dd>네 면이 각진 실선 상자입니다. 그 장 전체를 한 자리에 모아 둔 곳입니다. 시간이 없으시면 여기만 보셔도 됩니다.</dd>
+    </div>
+  </dl>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ⑧ 시작
+       ════════════════════════════════════════════════════════════════════════ -->
+  <div class="bk-foot">
+    <small>여는 장 ~ 3장 열림 · 4장부터는 만들고 있습니다</small>
+    <a class="bk-next" href="00.html">처음부터 읽기 ▶ <b>여는 장 · 성경이라는 도서관</b></a>
+  </div>
 
 </article>
 
