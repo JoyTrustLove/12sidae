@@ -15,7 +15,9 @@
     <i class="done"></i><i class="now"></i><i></i><i></i><i></i><i></i>
     <i></i><i></i><i></i><i></i><i></i><i></i>
   </span>
-  <span class="bk-run__pos">2 / 12 · 족장</span>
+  <!-- 소리로 들으면 「2 / 12 · 족장」뿐이라 무엇의 2/12인지 알 길이 없다.
+       막대가 aria-hidden 이므로 글자 한 마디를 눈에만 안 보이게 덧댄다(00·01·03 과 같은 형식) -->
+  <span class="bk-run__pos"><span class="bk-sr">진도 </span>2 / 12 · 족장</span>
 </div>
 
 <article class="bk-page">
@@ -26,9 +28,9 @@
     <h1 class="bk-h1">흩어진 인류 가운데 한 사람을</h1>
     <p><span class="bk-oneword">한 단어 · 신실하심</span></p>
 
-    <ul class="bk-map">
+    <ul class="bk-map" aria-label="열두 시대 지도">
       <li class="done"><b>1</b><i>원역사</i></li>
-      <li class="now"><b>2</b><i>족장</i></li>
+      <li class="now" aria-current="step"><b>2</b><i>족장</i></li>
       <li><b>3</b><i>출애굽·광야</i></li>
       <li><b>4</b><i>가나안</i></li>
       <li><b>5</b><i>사사</i></li>
@@ -47,8 +49,8 @@
   </header>
 
   <!-- ════════ B3 학습 목표 ════════ -->
-  <section class="bk-goal">
-    <span class="bk-lbl">이 장을 덮으면 남는 것</span>
+  <section class="bk-goal" aria-labelledby="lbl-goal">
+    <span class="bk-lbl" id="lbl-goal">이 장을 덮으면 남는 것</span>
     <p class="lead">이 장을 덮을 때, 세 가지가 손에 남습니다.</p>
     <ol>
       <li>한 사람에게 걸린 약속이 아들에게, 손자에게 이어지는 순서가 보입니다.</li>
@@ -126,14 +128,16 @@
       <div class="meat">쪼갠 고기</div>
     </div>
 
+    <!-- ●/○ 는 「지나갔다고 적힌 것」·「지나갔다는 말이 없는 쪽」 글자 라벨을 눈으로 되풀이한 것뿐이다.
+         소리로는 「검은 원」·「흰 원」으로 읽혀 뜻 없는 소음이 되므로 감춘다(01.html ◐◑ 과 같은 처리) -->
     <ul class="bk2-ledger">
       <li class="yes">
         <span class="cat">지나갔다고 적힌 것</span>
-        <span class="mk">●</span><b>화로와 횃불</b><cite>창 15:17</cite>
+        <span class="mk" aria-hidden="true">●</span><b>화로와 횃불</b><cite>창 15:17</cite>
       </li>
       <li class="no">
         <span class="cat">지나갔다는 말이 없는 쪽</span>
-        <span class="mk">○</span><b>아브라함</b><span class="none">본문에 그 말이 없습니다</span>
+        <span class="mk" aria-hidden="true">○</span><b>아브라함</b><span class="none">본문에 그 말이 없습니다</span>
       </li>
     </ul>
 
@@ -157,14 +161,16 @@
   <!-- ════════ B8 여기까지 ① ════════ -->
   <div class="bk-check">
     <span class="bk-lbl">여기까지</span>
-    <p class="trail">여기까지 나온 것 — 부르심 → 땅·자손·복 → 화로와 횃불 → 25년 → 이삭</p>
+    <!-- trail 에 「화로와 횃불」을 두면 아래 둘째 물음의 답이 세 줄 위에 그대로 적혀 있게 된다.
+         접어 둔 답(details)의 뜻이 사라지므로 trail 은 장면 이름(「쪼갠 고기」)까지만 둔다 -->
+    <p class="trail">여기까지 나온 것 — 부르심 → 땅·자손·복 → 쪼갠 고기 → 25년 → 이삭</p>
     <ul>
-      <li>떠나라는 말을 들은 사람에게 알려 주지 않으신 것은 무엇이었습니까?</li>
+      <li>부르심은 한 사람에게 갔는데, 복은 누구에게까지 간다고 하셨습니까?</li>
       <li>쪼갠 고기 사이를 지나간 것은 무엇이었습니까?</li>
     </ul>
     <details>
       <summary>떠오르지 않으셔도 됩니다 · 한 줄로 다시 보기</summary>
-      <p>목적지가 지명이 아니라 약속이었고, 그 사이를 지나간 것은 화로와 횃불이었습니다.</p>
+      <p>복은 땅의 모든 족속에게까지 간다고 하셨고, 그 사이를 지나간 것은 화로와 횃불이었습니다.</p>
     </details>
     <span class="back">떠오르지 않으시면 ↑「한 사람을 부르십니다」·「쪼갠 고기 사이를 지나간 것」을 다시 보시면 됩니다.</span>
   </div>
@@ -209,21 +215,21 @@
         <span class="rel">그 한 사람</span>
         <b>아브라함</b>
         <span class="say">고향과 친척과 아버지의 집을 떠난 사람</span>
-        <span class="pass">약속을 받음 ●</span>
+        <span class="pass">약속을 받음 <span aria-hidden="true">●</span></span>
         <span class="go">↑ 앞서 읽은 대목 「한 사람을 부르십니다」</span>
       </li>
       <li>
         <span class="rel">아들</span>
         <b>이삭</b>
         <span class="say">25년 끝에 온 아이</span>
-        <span class="pass">약속이 넘어감 ●</span>
+        <span class="pass">약속이 넘어감 <span aria-hidden="true">●</span></span>
         <span class="go">↑ 앞서 읽은 대목 「25년」</span>
       </li>
       <li>
         <span class="rel">손자</span>
         <b>야곱</b>
         <span class="say">형과 아버지를 속이고 도망친 사람 · 새 이름 이스라엘</span>
-        <span class="pass">약속이 넘어감 ●</span>
+        <span class="pass">약속이 넘어감 <span aria-hidden="true">●</span></span>
         <span class="go">↓ 지금 읽는 대목 「도망자를 먼저 찾아오십니다」</span>
       </li>
       <li>
@@ -267,14 +273,18 @@
     <span class="bk-lbl">여기까지</span>
     <p class="trail">여기까지 나온 것 — 모리아 → 대신 죽은 것 → 도망자 → 새 이름 → 13년</p>
     <ul>
-      <li>모리아에서 아들을 대신하여 드려진 것은 무엇이었습니까?</li>
+      <!-- 첫 물음은 「모리아」(숫양)였다. 모리아는 흐름 띠·낱말 띠·「멀리 보이는 그분」이
+           이미 세 번 되불러 주는 데다 장면 자체가 강해 잊히지 않는다.
+           반대로 「약속이 아들에게, 손자에게 넘어간다」는 목표 ①의 뼈대인데 본문에서는
+           한 문장으로만 지나가 놓치기 쉽다. 점검은 눈에 띄는 것이 아니라 놓치기 쉬운 것을 짚는다 -->
+      <li>속이고 도망치던 밤, 하나님이 먼저 찾아와 이어 주신 것은 무엇이었습니까?</li>
       <li>요셉 이야기에서 본문이 되풀이하는 문장의 주어는 누구였습니까?</li>
     </ul>
     <details>
       <summary>떠오르지 않으셔도 됩니다 · 한 줄로 다시 보기</summary>
-      <p>아들을 대신하여 숫양이 드려졌고, 되풀이되는 문장의 주어는 계속 여호와였습니다.</p>
+      <p>할아버지에게 하셨던 약속을 그대로 이어 주셨고, 되풀이되는 문장의 주어는 계속 여호와였습니다.</p>
     </details>
-    <span class="back">떠오르지 않으시면 ↑「모리아」·「13년」을 다시 보시면 됩니다.</span>
+    <span class="back">떠오르지 않으시면 ↑「도망자를 먼저 찾아오십니다」·「13년」을 다시 보시면 됩니다.</span>
   </div>
 
   <!-- ════════ B10 클로즈업 — 상자를 씌우지 않는다 ════════ -->
@@ -302,8 +312,8 @@
   </section>
 
   <!-- ════════ B11 한눈에 ════════ -->
-  <section class="bk-recap bk-full">
-    <span class="bk-lbl">한눈에</span>
+  <section class="bk-recap bk-full" aria-labelledby="lbl-recap">
+    <span class="bk-lbl" id="lbl-recap">한눈에</span>
 
     <!-- ① 흐름 띠 — 세로 타임라인 -->
     <ol class="bk-band">
@@ -329,16 +339,18 @@
         <span class="bar" style="width:39%"></span><span class="val">팔려 간 지 스물두 해째</span></div>
     </div>
 
-    <!-- ③ 한 줄 -->
-    <p class="bk-oneline">그들은 잘 견디지 못했는데도 약속은 지켜집니다. 근거는 약속한 쪽의 신실하심입니다.</p>
+    <!-- ③ 한 줄 — 「한눈에」는 이 장을 한 면으로 줄여 놓은 자리라 혼자 읽힌다.
+         앞의 흐름 띠·시간 눈금 어디에도 사람 이름이 없어서 "그들은"이 가리킬 데가 없었다.
+         본문 「이어지는 실·통치」와 「오늘로 둘」의 낱말로 가리킬 대상을 세운다 -->
+    <p class="bk-oneline">속인 사람도, 못 기다린 사람도 잘 견디지 못했는데 약속은 지켜집니다. 근거는 약속한 쪽의 신실하심입니다.</p>
 
     <!-- B12 이 장의 낱말 (같은 면) -->
     <div class="bk-gloss">
-      <span class="bk-lbl">이 장의 낱말</span>
+      <span class="bk-lbl" id="lbl-gloss">이 장의 낱말</span>
       <!-- 되돌아갈 곳은 <span> 이 아니라 두 번째 <dd> 로 둔다.
            <dl> 의 자식은 dt·dd 만 허용이라 <span> 은 규격 위반이고, 화면낭독기가
            낱말·뜻·포인터를 한 묶음으로 읽지 못한다. 3열 격자는 그대로다 -->
-      <dl>
+      <dl aria-labelledby="lbl-gloss">
         <dt>여호와</dt><dd>성경이 하나님을 부르는 이름입니다.</dd><dd class="back">↑1장</dd>
         <dt>언약</dt><dd>약속을 넘어 굳게 맺은 계약입니다.</dd><dd class="back">↑1장</dd>
         <dt>독자</dt><dd>외아들이라는 뜻입니다.</dd><dd class="back">↑「모리아」</dd>
@@ -359,8 +371,8 @@
   <p class="bk-thread"><b>통치</b> — 1장에서는 어긋남이 선고된 자리마다 남기심이 붙어 있었습니다. 여기서는 한 걸음 더 나갑니다. 속인 사람, 팔아넘긴 사람, 못 기다린 사람 — 계획은 그들을 비켜 가지 않고 <strong>통과해서</strong> 갑니다.</p>
 
   <!-- ════════ B14 복선 ════════ -->
-  <section class="bk-seed">
-    <span class="bk-lbl">멀리 보이는 그분 · 아직 풀지 않습니다</span>
+  <section class="bk-seed" aria-labelledby="lbl-seed">
+    <span class="bk-lbl" id="lbl-seed">멀리 보이는 그분 · 아직 풀지 않습니다</span>
     <p>오늘 심을 것은 <strong>모리아</strong>입니다.</p>
     <p>그 산에서 하나님은 아버지에게 아들을 요구하셨고, 마지막 순간에 <strong>멈추게 하셨습니다.</strong></p>
     <p>이 ‘멈춤’을 기억해 두십시오.</p>
@@ -378,8 +390,8 @@
   <h3 class="bk-sub">둘, 흠 있는 사람에 대하여.</h3>
   <p>주인공들은 위인전에 실릴 사람들이 아닙니다. 속인 사람, 겁먹은 사람, 팔려 간 사람입니다. 조상을 자랑하려고 쓴 문서라면 이렇게 쓰지 않았을 것입니다. 이 장이 말하는 것은 사람의 훌륭함이 아니라 약속한 쪽의 <strong>신실하심</strong>입니다.</p>
 
-  <section class="bk-solo">
-    <span class="bk-lbl">혼자 · 나를 돌아보기</span>
+  <section class="bk-solo" aria-labelledby="lbl-solo">
+    <span class="bk-lbl" id="lbl-solo">혼자 · 나를 돌아보기</span>
     <ul>
       <li>나는 지금 무엇을 기다리고 있나?
         <span class="bk-write"><i></i><i></i><i></i></span></li>
@@ -389,8 +401,8 @@
     <p class="ease">마음속으로만 답해 보셔도 됩니다.</p>
   </section>
 
-  <section class="bk-talk">
-    <span class="bk-lbl">함께 이야기해 볼 질문</span>
+  <section class="bk-talk" aria-labelledby="lbl-talk">
+    <span class="bk-lbl" id="lbl-talk">함께 이야기해 볼 질문</span>
     <ol>
       <li>목적지를 모른 채 떠나라는 말을 들었다면, 여러분은 어떻게 하셨겠습니까?
         <span class="bk-write"><i></i><i></i><i></i></span></li>
@@ -442,7 +454,9 @@
 
   <div class="bk-foot">
     <small>2 / 12를 마쳤습니다</small>
-    <a class="bk-next" href="03.html">다음 칸 ▶ <b>3 출애굽·광야</b></a>
+  <a class="bk-next" href="index.html">☰ 차례로</a>
+    <a class="bk-next" href="01.html">◀ 지난 칸 · <b>1 원역사</b></a>
+  <a class="bk-next" href="03.html">다음 칸 ▶ <b>3 출애굽·광야</b></a>
   </div>
 
 </article>
