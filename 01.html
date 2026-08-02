@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>1장. 모든 것이 어긋나기 시작한 자리 · 『12시대』</title>
+<meta name="description" content="한 사람의 선택이 세대를 건너 번져 갑니다. 가인은 숨었고, 라멕은 읊었습니다. 그런데 어긋남이 선고된 자리마다 남겨 주시는 것이 붙어 있습니다.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="『12시대』 학생용">
+<meta property="og:title" content="1장. 모든 것이 어긋나기 시작한 자리">
+<meta property="og:description" content="한 사람의 선택이 세대를 건너 번져 갑니다. 가인은 숨었고, 라멕은 읊었습니다.">
+<meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="assets/style.css">
 <style>
 /* 01장 국소 보정 — 「되돌아갈 곳」(↑「소제목」)을 실제 링크로 만들면서 두 줄만 얹는다.
@@ -11,7 +18,12 @@
    ② 링크 색은 본문색으로 되돌린다 — 구분은 색이 아니라 밑줄(모양)이 진다 (색약 대응)
    승인되면 assets/style.css 로 옮기고 0·2·3장에도 같이 적용한다. */
 .bk-page h2[id]{scroll-margin-top:60px;}
-.bk-back-link{color:inherit;}
+/* ③ 2026-08-02 학생 시선 2차 점검 — 손가락 표적.
+   「여기까지 ②」의 되돌아갈 곳은 링크 넷이 가운뎃점 하나로만 떨어져 있다
+   (「첫 어긋남」·「번짐 ① 가인」·「그러나 — 한 사람」·「번짐 ④ 바벨」).
+   13.5px 글자라 표적 높이가 18px 남짓이고 옆 링크와 7px 간격이라 폰에서 오탭이 난다.
+   글자·문구는 그대로 두고 여백만 준다 — 줄바꿈·색·모양 채널은 건드리지 않는다. */
+.bk-back-link{color:inherit;display:inline-block;padding:4px 2px;}
 </style>
 </head>
 <body>
@@ -29,11 +41,18 @@
 
   <!-- ════════ B1 장 표지 ════════ -->
   <header class="bk-opener bk-full">
-    <div class="bk-no">『12시대』 · 1장</div>
+    <!-- 🔁 2026-08-02 학생 시선 2차 점검 — 첫 화면에 "무엇에 관한 책인지"가 없었다.
+         링크를 받아 이 장부터 여는 사람에게 『12시대』라는 이름만으로는 성경 이야기인 줄
+         알 수 없다(이 지면에서 '성경'이라는 낱말이 처음 나오는 곳은 「맡기신 자리」로,
+         폰에서 네 화면쯤 뒤다). 새 문구를 짓지 않고 index.html 표지의 부제
+         = <title> 과 같은 문장을 그대로 옮겼다. 되돌릴 때는 <br> 뒷줄만 지운다.
+         ⚠️ 0장은 같은 문제를 「『12시대』 · 학생용 …」 서지 한 줄로 이미 풀었다.
+            02·03 에도 같은 두 낱말을 넣으면 네 장이 맞는다. -->
+    <div class="bk-no">『12시대』 · 1장<br>성경 전체를 한 이야기로</div>
     <h1 class="bk-h1">모든 것이 어긋나기 시작한 자리</h1>
     <p><span class="bk-oneword">한 단어 · 번짐</span></p>
 
-    <ul class="bk-map" aria-label="열두 시대 지도">
+    <ul class="bk-map" role="list" aria-label="열두 시대 지도">
       <li class="now" aria-current="step"><b>1</b><i>원역사</i></li>
       <li><b>2</b><i>족장</i></li>
       <li><b>3</b><i>출애굽·광야</i></li>
@@ -54,8 +73,8 @@
   </header>
 
   <!-- ════════ B3 학습 목표 ════════ -->
-  <section class="bk-goal">
-    <span class="bk-lbl">이 장을 덮으면 남는 것</span>
+  <section class="bk-goal" aria-labelledby="lbl-goal">
+    <span class="bk-lbl" id="lbl-goal">이 장을 덮으면 남는 것</span>
     <p class="lead">이 장을 덮을 때, 세 가지가 손에 남습니다.</p>
     <ol>
       <li>정원에서 바벨까지, 어긋남이 세대를 건너 번져 가는 과정이 보입니다.</li>
@@ -172,7 +191,13 @@
 
   <div class="bk-term">
     <span class="bk-lbl">낱말</span>
-    <p><dfn>읊다</dfn> — 이 대목이 히브리 시의 형식(같은 뜻을 다른 말로 반복하는 구조)으로 쓰여 있습니다. 멜로디를 붙였다는 뜻은 아닙니다.</p>
+    <!-- 🔁 2026-08-02 학생 시선 2차 점검 — 이 상자는 답만 남고 물음이 지워져 있었다.
+         「읊다 — 이 대목이 히브리 시의 형식으로 쓰여 있습니다. 멜로디를 붙였다는 뜻은
+         아닙니다」는 낱말을 풀지 않는다. 처음 읽는 사람은 '이 대목'이 어느 대목인지,
+         왜 갑자기 멜로디 이야기가 나오는지를 되짚어야 한다.
+         원고의 물음 한 마디(「읊었다는 걸 어떻게 아나요?」)를 그대로 되살렸다.
+         새 문구 0건 — 원고 {참고} 문장을 글자 그대로 복원한 것이다. -->
+    <p><dfn>읊다</dfn> — 읊었다는 걸 어떻게 아나요? 이 대목이 히브리 시의 형식(같은 뜻을 다른 말로 반복하는 구조)으로 쓰여 있습니다. 멜로디를 붙였다는 뜻은 아닙니다.</p>
   </div>
 
   <p>방금 들고 계시던 그 숫자입니다. 하나님이 가인을 <strong>지키시려고</strong> 정하신 척도를, 라멕은 자기가 <strong>갚을 권리</strong>의 척도로 바꿔 인용합니다.</p>
@@ -320,7 +345,7 @@
     <span class="bk-lbl">그림 2 · 번짐이 지나간 자리</span>
     <p class="bk-dia__axis">한 칸씩 내려갈수록 세대가 흐릅니다. 오른쪽 칩은 그때 번짐이 닿은 데입니다.</p>
 
-    <ol class="bk-stair">
+    <ol class="bk-stair" role="list">
       <li>
         <span class="hd"><b>번짐 ① 가인</b><span class="sc">아담의 아들</span></span>
         <span class="ln">그는 두려워했습니다</span>
@@ -369,10 +394,10 @@
   </section>
 
   <!-- ════════ B11 한눈에 ════════ -->
-  <section class="bk-recap bk-full">
-    <span class="bk-lbl">한눈에</span>
+  <section class="bk-recap bk-full" aria-labelledby="lbl-recap">
+    <span class="bk-lbl" id="lbl-recap">한눈에</span>
 
-    <ol class="bk-band">
+    <ol class="bk-band" role="list">
       <li><b>맡기신 자리</b><span>출발점은 "하나님이 맡기셨다"입니다</span> <cite>창 1:27</cite></li>
       <li><b>첫 어긋남</b><span>"무엇이 옳고 그른지 내가 정하겠다"</span> <cite>창 3:5</cite></li>
       <li><b>번짐 ① 가인</b><span>다스리지 못하고 다스림을 당합니다</span> <cite>창 4:7</cite></li>
@@ -426,8 +451,8 @@
 
     <!-- B12 이 장의 낱말 -->
     <div class="bk-gloss">
-      <span class="bk-lbl">이 장의 낱말</span>
-      <dl>
+      <span class="bk-lbl" id="lbl-gloss">이 장의 낱말</span>
+      <dl aria-labelledby="lbl-gloss">
         <dt>하나님의 형상</dt><dd>이 땅을 돌보도록 세워졌다는 뜻입니다.</dd><dd class="back">↑<a class="bk-back-link" href="#s1">「맡기신 자리」</a></dd>
         <dt>죄</dt><dd>관계가 어긋난 상태입니다.</dd><dd class="back">↑<a class="bk-back-link" href="#s2">「첫 어긋남」</a></dd>
         <dt>여호와</dt><dd>하나님을 부르는 이름입니다.</dd><dd class="back">↑<a class="bk-back-link" href="#s2">「첫 어긋남」</a></dd>
@@ -461,8 +486,8 @@
   <p class="bk-thread"><b>임재</b> — 동산을 거니시는 하나님의 소리가 들리던 자리였습니다(창 3:8). 그 가까움이 첫 어긋남에서 끊깁니다. 다만 끊긴 쪽에서 부르는 목소리는 계속됩니다. "네가 어디 있느냐", 그리고 "내려오셨더라".</p>
 
   <!-- ════════ B14 복선 ════════ -->
-  <section class="bk-seed">
-    <span class="bk-lbl">멀리 보이는 그분 · 아직 풀지 않습니다</span>
+  <section class="bk-seed" aria-labelledby="lbl-seed">
+    <span class="bk-lbl" id="lbl-seed">멀리 보이는 그분 · 아직 풀지 않습니다</span>
     <p>약속드린 코너입니다. 오늘 하나 심고, 풀지 않겠습니다.</p>
     <p><strong>첫 사람이 '듣지 않기로' 한 그 자리를 기억해 두십시오.</strong></p>
     <p>맡겨진 자리에 머물 것인가, 한 칸 올라설 것인가. 한 사람이 듣지 않기로 했고, 모든 번짐이 거기서 시작되었습니다.</p>
@@ -491,9 +516,9 @@
   <p>바벨탑 이야기가 불편하게 느껴지셨다면, 낯설어서가 아니라 익숙해서일지 모릅니다. 혼자 힘으로 올라서겠다는 탑, 인정받으려고 나를 전시하는 탑, 돈과 지위로 안전을 쌓는 탑. 이름을 내는 것과 흩어지지 않는 것은 지금도 우리를 움직입니다.</p>
 
   <!-- ════════ B16 나를 돌아보기 ════════ -->
-  <section class="bk-solo">
-    <span class="bk-lbl">혼자 · 나를 돌아보기</span>
-    <ul>
+  <section class="bk-solo" aria-labelledby="lbl-solo">
+    <span class="bk-lbl" id="lbl-solo">혼자 · 나를 돌아보기</span>
+    <ul role="list">
       <li>나에게 '무뎌진 것'이 있다면 무엇인가?
         <span class="bk-write"><i></i><i></i><i></i></span></li>
       <li>나는 지금 누구의 이름을 높이며 살고 있나?
@@ -503,9 +528,9 @@
   </section>
 
   <!-- ════════ B17 함께 이야기해 볼 질문 ════════ -->
-  <section class="bk-talk">
-    <span class="bk-lbl">함께 이야기해 볼 질문</span>
-    <ol>
+  <section class="bk-talk" aria-labelledby="lbl-talk">
+    <span class="bk-lbl" id="lbl-talk">함께 이야기해 볼 질문</span>
+    <ol role="list">
       <li>가인과 라멕의 차이를 한 문장으로 설명한다면?
         <span class="bk-write"><i></i><i></i><i></i></span></li>
       <li>노아에 대해 성경은 "이해했다"가 아니라 "그대로 했다"고 적습니다. 이 차이가 왜 중요할까요?
@@ -513,6 +538,13 @@
       <li>오늘날의 바벨탑을 하나만 든다면 무엇이겠습니까?
         <span class="bk-write"><i></i><i></i><i></i></span></li>
     </ol>
+    <!-- 🔁 2026-08-02 학생 시선 2차 점검 — 이 상자만 완충 문구가 없었다.
+         바로 위 「나를 돌아보기」는 "마음속으로만 답해 보셔도 됩니다"로 닫히는데,
+         「함께」는 질문 셋으로 끝난다. 링크를 받아 혼자 폰으로 읽는 사람에게는
+         같이 이야기할 사람이 없는 채로 셋이 남는다.
+         새 문구를 짓지 않고 0장 같은 자리에 이미 있는 문장을 그대로 옮겼다.
+         ⚠️ 02·03 도 이 줄이 없다 — 넣으면 네 장이 맞는다. -->
+    <p class="ease">말하고 싶은 만큼만 나누셔도 됩니다.</p>
   </section>
 
   <!-- ════════ B18 다리 + 다음 칸 ════════ -->
