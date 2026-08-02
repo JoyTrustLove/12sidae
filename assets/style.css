@@ -1,0 +1,1380 @@
+@charset "UTF-8";
+/* =============================================================================
+   『12시대』 학생용 교재 프레임 — style.css  v1.0 ( 확정)
+   정본 사양서: 5_북_12시대/_교재프레임/확정사양서.md
+
+   설계 원칙 4개
+   1) 구분은 [모양 + 글자 라벨 + 색] 3중. 색은 3차 채널이다.
+      → 흑백(grayscale)에서 7종이 전부 구별되지 않으면 이 파일은 불합격이다.
+   2) 라벨 글자는 HTML에 둔다. CSS content 로는 글리프(▌◆▲✓☾✎◎)만 만든다.
+      CSS가 안 실려도 「성경」·「낱말」·「여기가 핵심」이 읽혀야 한다.
+   3) 반전(어두운 배경) 0건. 색 글자 강조 0건. 이모지 0건.
+   4) 인쇄는 부록이 아니라 1급 산출물이다. 배경 채움에 의존하지 않는다.
+
+   테두리 문법(= 1차 채널). 색을 다 지워도 이것만으로 갈린다.
+     성경     좌측 세로 겹선(double)
+     낱말     위아래 점선(dotted) · 작은 글씨
+     여기까지 위아래 파선(dashed) · 보통 글씨
+     핵심     위아래 겹선(double) · 큰 글씨
+     활동     4면 실선 + 둥근 모서리
+     복선     4면 파선 + 상단 굵은 실선(모자) + 우상단 봉인 ◈
+     한눈에   4면 실선 2px + 각진 모서리
+   ============================================================================= */
+
+/* ── 0. 토큰 ────────────────────────────────────────────────────────────── */
+:root{
+  /* 지면 */
+  --paper:#ffffff;
+  --paper-2:#faf9f6;
+  --paper-3:#efece5;
+  --ink:#16181d;
+  --ink-2:#454b57;
+  --ink-3:#787e8a;   /* ⚠️ 이 값은 4.08:1 — 파일 끝 §18-1 이 #6b717d(4.90:1)로 덮는다 */
+  --rule:#d8d5cd;
+
+  /* 요소 7종 — 적록 조합 0건 */
+  --c-scr:#1f3a63;   --bg-scr:#f1f5fa;   /* 성경   남색   */
+  --c-term:#4a5462;  --bg-term:#f4f5f7;  /* 낱말   슬레이트 */
+  --c-key:#7a5a12;   --bg-key:#fcf7e9;   /* 핵심   황토   */
+  --c-act:#0f5f5c;   --bg-act:#f0f7f6;   /* 활동   청록   */
+  --c-seed:#5b3a6e;  --bg-seed:#f7f3f9;  /* 복선   자주   */
+  --c-map:#333a45;                       /* 진도   무채   */
+
+  /* 서체 — 성경의 세리프는 4차 단서다. 폴백이 실패해도 겹선·라벨·장절칩이 남는다 */
+  --f-sans:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",
+           system-ui,-apple-system,sans-serif;
+  --f-serif:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+
+  /* 지면 폭 */
+  --measure:34rem;   /* 본문 — 한 줄 28~32자 */
+  --wide:42rem;      /* 지도·한눈에·클로즈업 */
+
+  /* 8px 수직 리듬 */
+  --u:8px;
+  --gap-in:calc(var(--u)*4);   /* 32 — 같은 막 안 */
+  --gap-act:calc(var(--u)*7);  /* 56 — 막이 바뀔 때 */
+}
+
+/* ── 1. 리셋 · 지면 ─────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-sans);
+  font-size:17px;
+  line-height:1.85;
+  word-break:keep-all;          /* 한국어 어절 보존 */
+  overflow-wrap:anywhere;       /* 긴 낱말 넘침 방지 */
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;height:auto;}
+
+.bk-page{
+  max-width:var(--wide);
+  margin:0 auto;
+  padding:0 20px 5rem;
+}
+/* 본문은 measure, 넓은 블록은 .bk-full 로 wide 까지 */
+.bk-page > *{max-width:var(--measure);margin-left:auto;margin-right:auto;}
+.bk-page > .bk-full{max-width:none;}
+
+p{margin:0 0 calc(var(--u)*2);}
+strong{font-weight:700;}                    /* 본문 강조는 굵기만. 색 금지 */
+mark{background:#fbf0cf;color:inherit;padding:0 2px;}
+a{color:var(--c-scr);}
+:focus-visible{outline:2px solid var(--c-map);outline-offset:2px;}
+
+/* ── 2. 타이포 위계 ─────────────────────────────────────────────────────── */
+h1,h2,h3,h4{line-height:1.35;margin:0;font-weight:700;}
+.bk-h1{
+  font-size:clamp(1.7rem,5.2vw,2.1rem);
+  line-height:1.28;letter-spacing:-.01em;margin:0 0 var(--u);
+}
+h2{                                   /* 장면 소제목 */
+  font-size:1.3rem;line-height:1.4;
+  margin:var(--gap-act) 0 calc(var(--u)*1.5);
+  padding-top:calc(var(--u)*1.5);
+  border-top:1px solid var(--rule);
+}
+h3{                                   /* 코너 제목 */
+  font-size:1.05rem;letter-spacing:.02em;
+  margin:var(--gap-in) 0 var(--u);
+}
+h3::before{
+  content:"";display:block;width:2.2rem;height:2px;
+  background:var(--ink);margin-bottom:calc(var(--u)*1.2);
+}
+h4{font-size:1rem;margin:calc(var(--u)*2.5) 0 var(--u);}
+
+/* 공통 라벨 — 글자는 HTML, 글리프만 여기 */
+.bk-lbl{
+  display:block;font-family:var(--f-sans);
+  font-size:12px;font-weight:700;letter-spacing:.08em;line-height:1.4;
+  margin-bottom:calc(var(--u)*.8);
+}
+.bk-chip{                              /* ○선택 등 부가 칩 */
+  display:inline-block;margin-left:6px;padding:0 7px;
+  border:1px solid currentColor;border-radius:999px;
+  font-size:10px;font-weight:700;letter-spacing:.04em;vertical-align:middle;
+}
+
+/* ── 3. 진도 ────────────────────────────────────────────────────────────── */
+/* 3-1 미니 스트립 (sticky) — 어느 지면을 펼쳐도 12분의 몇인지 보인다 */
+.bk-run{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;gap:10px;
+  padding:7px 20px;
+  background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  font-size:12.5px;font-weight:700;letter-spacing:.02em;color:var(--ink-2);
+}
+.bk-run__bars{display:flex;gap:3px;flex:1;min-width:0;}
+.bk-run__bars i{flex:1;height:6px;background:var(--paper-3);display:block;}
+.bk-run__bars i.done{background:#b9b4a8;}
+.bk-run__bars i.now{background:var(--c-map);height:11px;align-self:center;}
+.bk-run__pos{white-space:nowrap;}
+
+/* 3-2 전체 12칸 지도 (장 표지) */
+.bk-map{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:5px;
+  list-style:none;margin:calc(var(--u)*3) 0 calc(var(--u)*2);padding:0;
+}
+.bk-map li{
+  border:1px dashed var(--rule);      /* 아직 안 간 칸 */
+  border-radius:3px;padding:8px 4px;text-align:center;
+  font-size:11.5px;line-height:1.35;color:var(--ink-3);
+}
+.bk-map li b{display:block;font-size:13px;font-weight:700;}
+.bk-map li i{display:block;font-style:normal;}
+.bk-map li.done{                       /* 지나온 칸 */
+  border:1px solid var(--rule);color:var(--ink-2);
+  text-decoration:underline;text-underline-offset:3px;
+}
+.bk-map li.now{                        /* 현재 칸 — 색+글자(▶)+모양(채움·2.5px) 3중 */
+  border:2.5px solid var(--c-map);background:var(--c-map);color:#fff;font-weight:700;
+}
+.bk-map li.now b::before{content:"▶ ";}
+.bk-mapnow{display:none;font-size:13px;font-weight:700;margin:0 0 calc(var(--u)*2);}
+
+/* 3-3 다음 칸 (다리 옆) */
+.bk-next{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:calc(var(--u)*2);padding:7px 13px;
+  border:1px solid var(--rule);border-radius:4px;
+  font-size:13.5px;color:var(--ink-2);text-decoration:none;
+}
+.bk-next b{color:var(--ink);}
+
+/* ── 4. 장 표지 ─────────────────────────────────────────────────────────── */
+.bk-opener{
+  padding:calc(var(--u)*6) 0 calc(var(--u)*4);
+  border-bottom:2px solid var(--ink);
+}
+.bk-opener .bk-no{
+  font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);
+}
+.bk-oneword{
+  display:inline-block;margin-top:calc(var(--u)*1.5);
+  padding:3px 11px;border:1.5px solid var(--c-key);border-radius:5px;
+  background:var(--bg-key);color:var(--c-key);
+  font-size:14.5px;font-weight:700;
+}
+/* 지난 칸에서 온 것 */
+.bk-from{margin:calc(var(--u)*2) 0 0;color:var(--ink-2);}
+
+/* ── 5. 학습 목표 「이 장을 덮으면 남는 것」 ─────────────────────────────── */
+.bk-goal{
+  margin:var(--gap-in) 0;padding:16px 18px;
+  border:1px solid var(--rule);border-left:6px solid var(--c-map);
+  background:var(--paper-2);
+}
+.bk-goal .bk-lbl{color:var(--ink-2);}
+.bk-goal .bk-lbl::before{content:"◇ ";}
+.bk-goal .lead{font-weight:700;margin:0 0 calc(var(--u)*1.2);}
+.bk-goal ol{margin:0;padding-left:1.5em;}
+.bk-goal li{margin:0 0 calc(var(--u)*1.2);line-height:1.75;}
+.bk-goal li:last-child{margin-bottom:0;}
+.bk-goal li::marker{font-weight:700;color:var(--ink-3);}
+
+/* ── 6. 본문 요소 7종 ───────────────────────────────────────────────────── */
+
+/* 6-1 성경 — 좌측 세로 겹선 + 세리프 + 장절 칩 */
+.bk-scr{
+  margin:calc(var(--u)*3) 0;padding:13px 18px;
+  border-left:6px double var(--c-scr);
+  background:var(--bg-scr);
+  font-family:var(--f-serif);font-size:17px;line-height:1.8;
+}
+.bk-scr .bk-lbl{color:var(--c-scr);font-family:var(--f-sans);}
+.bk-scr .bk-lbl::before{content:"▌ ";}
+.bk-scr p{margin:0 0 calc(var(--u)*.6);}
+.bk-scr p:last-of-type{margin-bottom:0;}
+.bk-scr cite{
+  display:block;margin-top:calc(var(--u)*1.2);text-align:right;
+  font-family:var(--f-sans);font-style:normal;
+  font-size:13px;font-weight:700;color:var(--c-scr);
+}
+.bk-scr strong{border-bottom:1px dotted currentColor;}  /* 저자 강조: 색 변경 없이 */
+.bk-scr .by{
+  display:block;margin-top:4px;text-align:right;
+  font-family:var(--f-sans);font-size:11.5px;font-weight:400;color:var(--ink-3);
+}
+
+/* 6-2 낱말 — 위아래 점선 · 작은 글씨 · 접이식 */
+.bk-term{
+  margin:calc(var(--u)*2) 0;padding:11px 0;
+  border-top:2px dotted var(--c-term);border-bottom:2px dotted var(--c-term);
+  background:none;
+  font-size:15px;line-height:1.72;color:var(--ink-2);
+}
+.bk-term .bk-lbl{color:var(--c-term);}
+.bk-term .bk-lbl::before{content:"◆ ";}
+.bk-term p{margin:0;}
+.bk-term dfn{font-style:normal;font-weight:700;color:var(--ink);}
+/* 재등장 낱말만 접는다. 첫 등장은 <div class="bk-term"> 로 항상 펼침 */
+details.bk-term > summary{
+  list-style:none;cursor:pointer;min-height:44px;
+  display:flex;align-items:center;gap:.4em;
+  font-size:15px;font-weight:700;color:var(--c-term);
+}
+details.bk-term > summary::-webkit-details-marker{display:none;}
+details.bk-term > summary::before{content:"◆";}
+details.bk-term > summary::after{
+  content:"펼치기";margin-left:auto;font-size:12px;font-weight:500;color:var(--ink-3);
+}
+details.bk-term[open] > summary::after{content:"접기";}
+
+/* 6-3 핵심 「여기가 핵심」 — 위아래 겹선 · 큰 글씨 */
+.bk-key{
+  margin:var(--gap-in) 0;padding:15px 16px;
+  border-top:5px double var(--c-key);border-bottom:5px double var(--c-key);
+  background:var(--bg-key);
+  font-size:18px;line-height:1.78;
+}
+.bk-key .bk-lbl{color:var(--c-key);}
+.bk-key .bk-lbl::before{content:"▲ ";}
+.bk-key p{margin:0;}
+
+/* 6-4 여기까지 (중간 점검) — 위아래 파선 · 답은 접힘 · 답란 없음 */
+.bk-check{
+  margin:var(--gap-in) 0;padding:13px 0;
+  border-top:2px dashed var(--c-act);border-bottom:2px dashed var(--c-act);
+  font-size:16px;line-height:1.75;color:var(--ink-2);
+}
+.bk-check .bk-lbl{color:var(--c-act);}
+.bk-check .bk-lbl::before{content:"✓ ";}
+.bk-check p{margin:0 0 calc(var(--u)*.8);}
+.bk-check .trail{                     /* 여기까지 나온 것 — 낱말 사슬 */
+  font-weight:700;color:var(--ink);
+}
+.bk-check ul{margin:0 0 calc(var(--u)*.8);padding-left:1.2em;}
+.bk-check li{margin:0 0 calc(var(--u)*.5);}
+.bk-check details > summary{
+  list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;
+  font-size:14.5px;font-weight:600;color:var(--ink-3);
+}
+.bk-check details > summary::-webkit-details-marker{display:none;}
+.bk-check details > summary::before{content:"▸ ";margin-right:.25em;}
+.bk-check details[open] > summary::before{content:"▾ ";}
+.bk-check details p{font-size:15px;color:var(--ink-2);margin:0 0 0 1.1em;}
+.bk-check .back{display:block;margin-top:calc(var(--u)*.6);font-size:13.5px;color:var(--ink-3);}
+
+/* 6-5 활동 — 4면 실선 + 둥근 모서리 + 번호 원 */
+.bk-solo,.bk-talk{
+  margin:calc(var(--u)*3) 0;padding:16px 18px;
+  border:1.5px solid var(--c-act);border-radius:14px;
+}
+.bk-solo{background:var(--bg-act);}
+.bk-solo .bk-lbl,.bk-talk .bk-lbl{color:var(--c-act);}
+.bk-solo .bk-lbl::before{content:"✎ ";}
+.bk-talk .bk-lbl::before{content:"◎ ";}
+.bk-solo ul{list-style:none;margin:0;padding:0;}
+.bk-solo li{position:relative;padding-left:1.1em;margin:0 0 calc(var(--u)*1.2);}
+.bk-solo li::before{content:"·";position:absolute;left:0;font-weight:700;}
+.bk-talk ol{list-style:none;margin:0;padding:0;counter-reset:q;}
+.bk-talk li{position:relative;padding-left:30px;margin:0 0 calc(var(--u)*1.5);counter-increment:q;}
+.bk-talk li::before{
+  content:counter(q);position:absolute;left:0;top:.3em;
+  width:20px;height:20px;line-height:17px;text-align:center;
+  border:1.5px solid var(--c-act);border-radius:50%;
+  font-size:12px;font-weight:700;color:var(--c-act);
+}
+.bk-solo .ease,.bk-talk .ease{margin:calc(var(--u)*1.2) 0 0;font-size:13.5px;color:var(--ink-3);}
+.bk-solo li:last-child,.bk-talk li:last-child{margin-bottom:0;}
+
+/* 쓰는 칸 — 화면에서는 숨고 인쇄에서만 나온다. 이 책을 워크북으로 만드는 장치 */
+.bk-write{display:none;}
+
+/* 6-6 복선 「멀리 보이는 그분」 — 4면 파선 + 모자 + 봉인 ◈ */
+.bk-seed{
+  position:relative;
+  margin:var(--gap-act) 0;padding:18px 20px;
+  border:1.5px dashed var(--c-seed);border-top:5px solid var(--c-seed);
+  background:var(--bg-seed);
+}
+.bk-seed .bk-lbl{color:var(--c-seed);}
+.bk-seed .bk-lbl::before{content:"☾ ";}
+.bk-seed::after{
+  content:"◈";position:absolute;top:12px;right:14px;
+  font-size:15px;line-height:1;color:var(--c-seed);
+}
+.bk-seed .note{margin:calc(var(--u)*1.5) 0 0;font-size:14px;color:var(--ink-2);}
+
+/* 6-7 클로즈업 「이 장면을 오래 보십시오」
+   — 상자를 씌우지 않는다. 여백과 글자 크기만으로 격상한다.
+     (교사용 원칙: 이 대목은 설명이 아니라 보게 하는 자리다) */
+.bk-zoom{
+  margin:var(--gap-act) 0;padding:calc(var(--u)*5) 0;
+  border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  font-size:18px;line-height:1.95;
+}
+.bk-zoom h3{margin-top:0;}
+.bk-zoom p:last-child{margin-bottom:0;}
+
+/* ── 7. 한눈에 ──────────────────────────────────────────────────────────── */
+.bk-recap{
+  margin:var(--gap-act) 0;padding:20px 18px;
+  border:2px solid var(--ink);
+}
+.bk-recap .bk-lbl{color:var(--ink-2);}
+.bk-recap .bk-lbl::before{content:"▤ ";}
+.bk-recap h3{margin-top:0;}
+.bk-recap h3::before{display:none;}
+
+/* 7-1 흐름 띠 — 세로 타임라인 (가로형 금지: 모바일에서 반드시 깨진다) */
+.bk-band{list-style:none;margin:calc(var(--u)*2) 0 0;padding:0;}
+.bk-band li{
+  position:relative;padding:0 0 calc(var(--u)*2) 22px;
+  border-left:2px solid var(--rule);
+}
+.bk-band li:last-child{border-left-color:transparent;padding-bottom:0;}
+.bk-band li::before{
+  content:"";position:absolute;left:-7px;top:7px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:2.5px solid var(--c-map);
+}
+.bk-band b{display:block;font-size:15.5px;}
+.bk-band span{display:block;font-size:15px;color:var(--ink-2);}
+.bk-band cite{font-style:normal;font-size:12.5px;color:var(--ink-3);}
+
+/* 7-2 보조 도해 ⓐ 대조표 — 열 머리에 기호+이름. 색 의존 0 */
+.bk-compare{width:100%;border-collapse:collapse;font-size:15px;margin:calc(var(--u)*2) 0 0;}
+.bk-compare th,.bk-compare td{
+  border:1px solid var(--rule);padding:9px 11px;vertical-align:top;text-align:left;
+}
+.bk-compare th{background:var(--paper-3);font-weight:700;}
+.bk-compare th .mk{margin-right:5px;}      /* ◐ / ◑ */
+
+/* 7-3 보조 도해 ⓑ 비율 막대 — 길이 + 숫자 라벨 + 채움 패턴. 색으로 안 가른다 */
+.bk-bars{margin:calc(var(--u)*2) 0 0;}
+.bk-bars .row{display:flex;align-items:center;gap:10px;margin:0 0 calc(var(--u)*1.2);font-size:14px;}
+.bk-bars .name{flex:0 0 8.5em;font-weight:700;}
+.bk-bars .bar{height:18px;border:1px solid var(--c-map);background:var(--c-map);}
+.bk-bars .row.alt .bar{
+  background:repeating-linear-gradient(45deg,var(--c-map) 0 3px,transparent 3px 7px);
+}
+.bk-bars .val{font-size:13px;color:var(--ink-2);white-space:nowrap;}
+
+/* 7-4 한 줄 */
+.bk-oneline{
+  margin:calc(var(--u)*3) 0 0;padding-top:calc(var(--u)*2);
+  border-top:1px solid var(--rule);
+  font-size:16px;font-weight:700;line-height:1.7;
+}
+.bk-oneline::before{content:"한 줄 · ";font-weight:400;color:var(--ink-3);}
+
+/* ── 8. 이 장의 낱말 (장 끝 모음) ───────────────────────────────────────── */
+.bk-gloss{margin:var(--gap-in) 0 0;padding-top:calc(var(--u)*2);border-top:2px dotted var(--c-term);}
+.bk-gloss .bk-lbl{color:var(--c-term);}
+.bk-gloss .bk-lbl::before{content:"◆ ";}
+.bk-gloss dl{display:grid;grid-template-columns:auto 1fr auto;gap:6px 14px;margin:0;font-size:14.5px;}
+.bk-gloss dt{font-weight:700;color:var(--ink);}
+.bk-gloss dd{margin:0;color:var(--ink-2);}
+.bk-gloss .back{color:var(--ink-3);font-size:12.5px;white-space:nowrap;}
+
+/* ── 9. 이어지는 실 ─────────────────────────────────────────────────────── */
+.bk-threads__chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 calc(var(--u)*2);}
+.bk-threads__chips i{
+  font-style:normal;font-size:12.5px;font-weight:700;letter-spacing:.03em;
+  padding:2px 10px;border:1px solid var(--rule);border-radius:999px;color:var(--ink-3);
+}
+.bk-threads__chips i.on{border:1.5px solid var(--ink);color:var(--ink);background:var(--paper-2);}
+.bk-threads__chips i.on::before{content:"● ";}      /* 움직인 실 */
+.bk-threads__chips i:not(.on)::before{content:"○ ";}/* 이번 장은 쉬는 실 */
+.bk-thread{margin:0 0 calc(var(--u)*2);}
+.bk-thread b{font-weight:700;}
+
+/* ── 10. 다리 · 장 끝 ───────────────────────────────────────────────────── */
+.bk-bridge{
+  margin:var(--gap-act) 0 0;padding-top:calc(var(--u)*3);
+  border-top:1px solid var(--rule);
+}
+.bk-foot{margin-top:calc(var(--u)*3);}
+.bk-foot small{display:block;font-size:13px;color:var(--ink-3);margin-bottom:calc(var(--u)*1.2);}
+
+/* ── 11. 넓은 표 — 페이지 body 는 절대 가로 스크롤하지 않는다 ───────────── */
+.bk-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:calc(var(--u)*3) 0;}
+.bk-scroll table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;}
+.bk-scroll th,.bk-scroll td{border:1px solid var(--rule);padding:9px 11px;text-align:left;line-height:1.6;}
+.bk-scroll th{background:var(--paper-2);font-weight:700;}
+.bk-scroll::after{content:"→ 옆으로";display:block;font-size:12px;color:var(--ink-3);text-align:right;padding-top:4px;}
+
+/* ── 12. 어두운 화면 — 책의 정본 외관은 종이(밝음)다. 야간 열람 보조일 뿐 ── */
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#15171b; --paper-2:#1b1e23; --paper-3:#272b32;
+    --ink:#e9e7e2;   --ink-2:#b5b2ab;   --ink-3:#8b8880;
+    --rule:#3a3d44;
+    --c-scr:#93b8e2;  --bg-scr:#1a2330;
+    --c-term:#a9b1bd; --bg-term:#1d2027;
+    --c-key:#e0a95e;  --bg-key:#2a2317;
+    --c-act:#5cc0bb;  --bg-act:#152524;
+    --c-seed:#cf92c4; --bg-seed:#241a28;
+    --c-map:#c9c6bf;
+  }
+  .bk-map li.now{color:#15171b;}
+  .bk-run{background:var(--paper);}
+  .bk-bars .bar{border-color:var(--c-map);}
+}
+
+/* ── 13. 모바일 ─────────────────────────────────────────────────────────── */
+@media (max-width:640px){
+  body{font-size:16.5px;}
+  .bk-page{padding:0 20px 4rem;}
+  .bk-run{padding:6px 20px;gap:8px;}
+  h2{font-size:1.2rem;margin-top:calc(var(--u)*5);}
+  .bk-zoom{font-size:17px;padding:calc(var(--u)*4) 0;}
+  .bk-key{font-size:17px;}
+  .bk-scr{padding:12px 14px;}
+  .bk-gloss dl{grid-template-columns:1fr;gap:0;}
+  .bk-gloss dt{margin-top:calc(var(--u)*1.2);}
+  .bk-gloss .back{white-space:normal;}
+  .bk-bars .name{flex-basis:6.5em;font-size:13px;}
+
+  /* 12칸 지도는 6열 모양을 끝까지 유지한다 — 지도의 모양 자체가 기억의 단서다 */
+  .bk-map li{padding:7px 2px;font-size:0;}
+  .bk-map li b{font-size:12.5px;}
+  .bk-map li i{display:none;}
+  .bk-map li.now i{display:block;font-size:9.5px;}
+  .bk-mapnow{display:block;}
+
+  /* 대조표 → 카드 스택. 헤더 라벨을 각 셀에 되살린다(data-h) */
+  .bk-compare,.bk-compare tbody,.bk-compare tr,.bk-compare td{display:block;width:100%;}
+  .bk-compare thead{display:none;}
+  .bk-compare tr{border:1px solid var(--rule);margin-bottom:10px;}
+  .bk-compare td{border:none;border-bottom:1px dashed var(--rule);}
+  .bk-compare td:last-child{border-bottom:none;}
+  .bk-compare td::before{
+    content:attr(data-h) " ";display:block;
+    font-weight:700;font-size:12px;color:var(--ink-3);margin-bottom:3px;
+  }
+}
+
+/* ── 14. 인쇄 — A4. 배경 채움에 의존하지 않는다 ─────────────────────────── */
+@media print{
+  @page{size:A4;margin:18mm 20mm 20mm;}
+
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.72;}
+  .bk-page{max-width:none;padding:0;}
+  .bk-page > *{max-width:none;}
+  .bk-run,.bk-next,.bk-foot a{display:none !important;}
+
+  /* 배경 전부 해제 — 흑백 프린터를 기본으로 가정한다 */
+  .bk-scr,.bk-key,.bk-solo,.bk-seed,.bk-goal,.bk-oneword,.bk-threads__chips i.on{
+    background:none !important;
+  }
+  .bk-map li.now{background:none !important;color:#000 !important;border:3px solid #000;}
+  .bk-map li.now b::before{content:"▶ ";}
+  mark{background:none;border-bottom:2px solid #000;}
+
+  /* 테두리는 전부 검정으로 — 색이 빠져도 문법은 남는다 */
+  .bk-scr{border-left-color:#000;}
+  .bk-term,.bk-gloss{border-color:#000;}
+  .bk-key{border-top-color:#000;border-bottom-color:#000;}
+  .bk-check{border-top-color:#000;border-bottom-color:#000;}
+  .bk-solo,.bk-talk{border-color:#000;}
+  .bk-talk li::before{border-color:#000;color:#000;}
+  .bk-seed{border-color:#000;}
+  .bk-seed::after{color:#000;}
+  .bk-lbl{color:#000 !important;}
+
+  /* 접이식은 전부 펼친다 — 인쇄물에서 접힌 것은 사라진 것이다
+     (CSS 만으로는 엔진 편차가 있어 beforeprint 스크립트를 함께 쓴다. 사양서 §9) */
+  details{display:block !important;}
+  details > summary{display:none !important;}
+  details > *:not(summary){display:revert !important;}
+
+  /* 새 면에서 시작 */
+  .bk-opener,.bk-recap{break-before:page;}
+  /* 잘리면 안 되는 것 */
+  .bk-scr,.bk-term,.bk-key,.bk-check,.bk-solo,.bk-talk,.bk-seed,
+  .bk-recap,.bk-band li,.bk-map,.bk-gloss,.bk-goal,figure,tr{break-inside:avoid;}
+  h1,h2,h3,h4{break-after:avoid;}
+  p{orphans:3;widows:3;}
+
+  /* 쓰는 칸 — 여기서만 나타난다 */
+  .bk-write{display:block;margin:2mm 0 5mm;}
+  .bk-write i{display:block;height:9mm;border-bottom:1px dotted #888;}
+
+  .bk-scroll{overflow:visible;}
+  .bk-scroll::after{content:"";}
+  .bk-scroll table{min-width:0;font-size:9.5pt;}
+
+  a{color:#000;text-decoration:none;}
+  a[href]::after{content:"" !important;}   /* 종이에 URL 노출 금지 */
+}
+
+/* ── 15. 접근성 · 검사 훅 ───────────────────────────────────────────────── */
+/* 개발 중 <body class="bk-mono"> 를 주면 흑백으로 본다.
+   이 상태에서 7종이 구별되지 않으면 그 판은 불합격이다. */
+.bk-mono{filter:grayscale(1);}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important;}
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   16. 도해 (2장) — 글로 읽으면 어려운 것만 그린다
+   ─────────────────────────────────────────────────────────────────────────────
+   🔴 도해는 8번째 상자가 아니다 — 테두리 상자를 두르지 않는다.
+      그래야 §5 요소 7종의 테두리 문법을 한 칸도 잠식하지 않는다.
+   구분 채널 3중
+     ① 모양 — 안에 그림(막대·사다리·통로)이 들어 있다는 사실 자체 + 하단 캡션선
+     ② 글자 — 「그림 N · …」 라벨을 HTML 에 쓴다(CSS 가 안 실려도 읽힌다) + 글리프 ▦
+     ③ 색   — 무채(--ink/--rule)만. 도해 안의 대비를 색으로 재지 않는다.
+   도해 내부 대비는 전부 [글자 라벨 + 모양] 으로 만든다.
+     지나갔다 ↔ 말이 없다 = ●/○ + 좌측 굵은선(실선/파선) + 각 칸의 글자 라벨
+     네 사람             = 세로 사다리 + 번호 원 + 관계어(아들·손자) + 약속 칩
+     시간 길이           = 길이 + 햇수 글자 + 채움(실선칠/45°해칭) + 테두리(실선/파선)
+   ═════════════════════════════════════════════════════════════════════════════ */
+.bk2-fig{margin:var(--gap-act) 0;padding:0;}
+.bk2-fig > .bk-lbl{color:var(--ink-2);}
+.bk2-fig > .bk-lbl::before{content:"▦ ";}
+.bk2-fig figcaption{
+  margin:calc(var(--u)*2) 0 0;padding-top:calc(var(--u)*1.2);
+  border-top:1px solid var(--rule);
+  font-size:13.5px;line-height:1.7;color:var(--ink-2);
+}
+.bk2-fig .bk2-note{
+  margin:calc(var(--u)*1.2) 0 0;font-size:12.5px;line-height:1.65;color:var(--ink-3);
+}
+.bk2-fig cite{font-style:normal;font-size:12.5px;font-weight:700;color:var(--ink-3);}
+
+/* 16-1 쪼갠 고기 사이 — 무엇이 지나갔다고 적혀 있는가 */
+.bk2-stage{margin:calc(var(--u)*1.5) 0 0;}
+.bk2-walk .meat{
+  display:flex;align-items:center;justify-content:center;
+  height:30px;border:2px solid var(--ink-2);
+  background:repeating-linear-gradient(45deg,
+             var(--paper-3) 0 4px,transparent 4px 9px);
+  font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--ink-2);
+}
+.bk2-walk .lane{
+  display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;
+  padding:11px 12px;margin:5px 0;
+  border-top:1px dashed var(--ink-3);border-bottom:1px dashed var(--ink-3);
+}
+.bk2-walk .lane .who{font-size:15.5px;font-weight:700;}
+.bk2-walk .lane .go{font-size:13.5px;color:var(--ink-2);}
+.bk2-walk .lane .go::before{content:"→ ";font-weight:700;}
+
+.bk2-ledger{list-style:none;margin:calc(var(--u)*2) 0 0;padding:0;}
+.bk2-ledger li{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 9px;
+  padding:8px 0 8px 12px;margin:0 0 7px;font-size:14.5px;
+}
+.bk2-ledger li.yes{border-left:5px solid var(--ink);}      /* 적혀 있는 것 */
+.bk2-ledger li.no{border-left:5px dashed var(--ink-3);}    /* 적혀 있지 않은 쪽 */
+.bk2-ledger .mk{font-size:13px;}                           /* ● / ○ */
+.bk2-ledger .cat{flex:0 0 100%;font-size:12px;font-weight:700;color:var(--ink-3);}
+.bk2-ledger b{font-size:15.5px;}
+.bk2-ledger .none{font-size:13.5px;color:var(--ink-3);}
+
+/* 16-2 네 사람 — 누가 누구의 아들인지, 약속이 어디까지 넘어갔는지 */
+.bk2-line ol{list-style:none;margin:calc(var(--u)*2) 0 0;padding:0;counter-reset:gen;}
+.bk2-line li{
+  position:relative;counter-increment:gen;
+  padding:0 0 calc(var(--u)*2.2) 28px;margin:0;
+  border-left:2px solid var(--rule);
+}
+.bk2-line li:last-child{border-left-color:transparent;padding-bottom:0;}
+.bk2-line li::before{
+  content:counter(gen);position:absolute;left:-13px;top:0;
+  width:24px;height:24px;line-height:21px;text-align:center;
+  border:1.5px solid var(--c-map);border-radius:50%;background:var(--paper);
+  font-size:12px;font-weight:700;color:var(--ink-2);
+}
+.bk2-line .rel{display:block;font-size:12px;color:var(--ink-3);}
+.bk2-line b{display:block;font-size:16.5px;line-height:1.4;}
+.bk2-line .say{display:block;font-size:14.5px;color:var(--ink-2);}
+.bk2-line .pass{
+  display:inline-block;margin-top:4px;padding:1px 9px;
+  border:1.5px solid var(--ink);border-radius:999px;
+  font-size:11.5px;font-weight:700;color:var(--ink);
+}
+.bk2-line .go{display:block;margin-top:4px;font-size:12.5px;color:var(--ink-3);}
+
+/* 16-3 약 400년은 어느 만큼인가 — 길이 + 숫자 라벨 + 채움 패턴(색 의존 0) */
+.bk2-time{margin:calc(var(--u)*2) 0 0;}
+.bk2-time .row{
+  display:grid;grid-template-columns:5.6em minmax(0,1fr);
+  gap:4px 10px;align-items:center;margin:0 0 calc(var(--u)*2);
+}
+.bk2-time .name{grid-column:1;grid-row:1;font-size:14.5px;font-weight:700;}
+.bk2-time .bar{
+  grid-column:2;grid-row:1;display:block;height:16px;
+  border:1px solid var(--c-map);background:var(--c-map);
+}
+.bk2-time .val{grid-column:2;grid-row:2;font-size:13px;line-height:1.6;color:var(--ink-2);}
+.bk2-time .go{grid-column:2;grid-row:3;font-size:12.5px;color:var(--ink-3);}
+.bk2-time .b25{width:39%;}
+.bk2-time .b13{width:20%;}
+.bk2-time .b22{width:34%;}
+.bk2-time .b400{                       /* 자를 끊은 칸 — 해칭 + 파선 + 글자 라벨 3중 */
+  width:100%;border-style:dashed;
+  background:repeating-linear-gradient(45deg,
+             var(--c-map) 0 3px,transparent 3px 7px);
+}
+
+/* 16-4 모바일 — 좁아지면 세로로 쌓인다. 가로 스크롤 0 */
+@media (max-width:640px){
+  .bk2-time .row{grid-template-columns:4.7em minmax(0,1fr);}
+  .bk2-time .name{font-size:13.5px;}
+  .bk2-walk .lane{flex-direction:column;align-items:flex-start;gap:2px;}
+  .bk2-ledger li{gap:2px 7px;}
+}
+
+/* 16-5 인쇄 — 배경 채움에 의존하지 않는다. 길이와 선 종류만으로 읽힌다 */
+@media print{
+  .bk2-fig{break-inside:avoid;}
+  .bk2-fig .bk-lbl{color:#000 !important;}
+  .bk2-walk .meat{background:none !important;border-color:#000;color:#000;}
+  .bk2-walk .lane{border-top-color:#000;border-bottom-color:#000;}
+  .bk2-ledger li.yes{border-left-color:#000;}
+  .bk2-ledger li.no{border-left-color:#000;border-left-style:dashed;}
+  .bk2-line li::before{border-color:#000;color:#000;background:none !important;}
+  .bk2-line .pass{border-color:#000;color:#000;}
+  .bk2-time .bar{background:none !important;border:1.5px solid #000;}
+  .bk2-time .b400{border-style:dashed;}
+}
+
+/* ── 16. 본문 도해 「그림」 (1장 추가 · 기존 클래스는 건드리지 않는다) ─────
+   도해는 8번째 상자가 아니다 — 4면 테두리 상자를 두르지 않는다.
+   그래야 §5의 7종 테두리 문법을 하나도 잠식하지 않는다.
+
+   구분 채널 3중
+     ① 모양 — 안에 그림(막대·계단·짝)이 들어 있다는 사실 자체.
+              다른 어떤 블록도 도형을 갖지 않는다. 하단에 캡션 구분선 1px.
+     ② 글자 — 「그림 N · …」 라벨을 HTML 에 쓴다(CSS 가 안 실려도 읽힌다) + 글리프 ▦
+     ③ 색   — 무채(--ink/--rule)만 쓴다. 도해 안의 대비는 색으로 재지 않는다.
+
+   🔴 도해 내부 대비는 전부 [글자 라벨 + 모양] 으로만 만든다.
+      칠 배↔칠십칠 배  = 길이 + 한글 숫자 라벨 + 채움(실선칠/45°해칭) + 테두리(실선/파선)
+      어긋남↔남겨 주심 = 좌우 위치 + 각 칸의 글자 라벨 + 좌측 굵은선(실선/점선)
+      계단             = 들여쓰기 단차 + 번호 + 오른쪽 칩 글자
+   ─────────────────────────────────────────────────────────────────────── */
+.bk-dia{margin:var(--gap-act) 0;padding:0;}
+.bk-dia .bk-lbl{color:var(--ink-2);}
+.bk-dia .bk-lbl::before{content:"▦ ";}
+.bk-dia__axis{
+  margin:0 0 calc(var(--u)*1.5);
+  font-size:13px;line-height:1.6;color:var(--ink-3);
+}
+.bk-dia figcaption{
+  margin:calc(var(--u)*2) 0 0;padding-top:calc(var(--u)*1.2);
+  border-top:1px solid var(--rule);
+  font-size:13.5px;line-height:1.7;color:var(--ink-2);
+}
+
+/* 16-1 칠 배 ↔ 칠십칠 배 — 길이 + 한글 숫자 + 채움 패턴 + 테두리 종류 */
+.bk-sevens .row{margin:0 0 calc(var(--u)*2.5);}
+.bk-sevens .row:last-child{margin-bottom:0;}
+.bk-sevens .hd{
+  display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap;
+  font-size:14.5px;
+}
+.bk-sevens .who{font-weight:700;}
+.bk-sevens .who .mk{margin-right:4px;}      /* ◐ / ◑ — 대조표와 같은 기호 */
+.bk-sevens .num{font-weight:700;font-size:15.5px;}
+.bk-sevens .hd cite{font-style:normal;font-size:12.5px;font-weight:400;color:var(--ink-3);}
+.bk-sevens .track{
+  display:block;margin:7px 0 6px;padding-bottom:4px;
+  border-bottom:1px solid var(--rule);
+}
+.bk-sevens .fill{
+  display:block;height:17px;min-width:9px;
+  border:1.5px solid var(--c-map);background:var(--c-map);
+}
+.bk-sevens .fill.hatch{                      /* 해칭 + 파선 테두리 = 배경이 꺼져도 갈린다 */
+  border-style:dashed;
+  background:repeating-linear-gradient(45deg,var(--c-map) 0 3px,transparent 3px 7px);
+}
+.bk-sevens .w7{width:7%;}
+.bk-sevens .w77{width:77%;}
+.bk-sevens .mean{display:block;font-size:14px;line-height:1.65;color:var(--ink-2);}
+
+/* 16-2 계단 — 한 칸씩 오른쪽·아래로. 단차는 들여쓰기(모양)로만 낸다 */
+.bk-stair{
+  --st:20px;                                 /* 단 하나의 폭 */
+  list-style:none;margin:0;padding:0;counter-reset:st;
+}
+.bk-stair li{
+  counter-increment:st;
+  margin:0 0 5px;padding:8px 11px 10px;
+  border-top:2px solid var(--c-map);
+  border-left:2px solid var(--c-map);
+}
+.bk-stair li:nth-child(2){margin-left:calc(var(--st)*1);}
+.bk-stair li:nth-child(3){margin-left:calc(var(--st)*2);}
+.bk-stair li:nth-child(4){margin-left:calc(var(--st)*3);}
+.bk-stair li:nth-child(5){margin-left:calc(var(--st)*4);}
+.bk-stair li:nth-child(6){margin-left:calc(var(--st)*5);}
+.bk-stair li:last-child{margin-bottom:0;}
+.bk-stair .hd{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap;}
+.bk-stair .hd b{font-size:15px;}
+.bk-stair .hd b::before{content:counter(st) ". ";font-weight:700;color:var(--ink-3);}
+.bk-stair .sc{
+  margin-left:auto;padding:1px 9px;
+  border:1px solid var(--rule);border-radius:999px;
+  font-size:12px;font-weight:700;color:var(--ink-2);white-space:nowrap;
+}
+.bk-stair .ln{display:block;margin-top:2px;font-size:14.5px;line-height:1.6;color:var(--ink-2);}
+
+/* 16-3 두 겹 — 왼칸 어긋남 ＋ 오른칸 남겨 주시는 것 */
+.bk-twofold .pair{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:0 10px;
+  align-items:stretch;margin:0 0 calc(var(--u)*2);
+}
+.bk-twofold .pair:last-child{margin-bottom:0;}
+.bk-twofold .cell{padding:8px 11px;font-size:14.5px;line-height:1.6;}
+.bk-twofold .cell.a{border:1px solid var(--rule);border-left:5px solid var(--c-map);}
+.bk-twofold .cell.b{border:1px solid var(--rule);border-left:5px dotted var(--c-map);}
+.bk-twofold .ct{
+  display:block;margin-bottom:2px;
+  font-size:11.5px;font-weight:700;letter-spacing:.05em;color:var(--ink-3);
+}
+.bk-twofold .plus{align-self:center;font-size:17px;font-weight:700;color:var(--ink-3);}
+.bk-twofold .pair cite{
+  grid-column:1 / -1;margin-top:4px;text-align:right;
+  font-style:normal;font-size:12.5px;color:var(--ink-3);
+}
+
+/* 16-4 도해 · 좁은 화면 — 가로 스크롤 0 이 되도록 전부 세로로 쌓는다 */
+@media (max-width:640px){
+  .bk-stair{--st:9px;}
+  .bk-stair .sc{margin-left:0;}
+  .bk-twofold .pair{grid-template-columns:1fr;gap:0;}
+  .bk-twofold .plus{justify-self:start;padding:3px 0 3px 4px;}
+  .bk-twofold .pair cite{text-align:left;}
+  .bk-sevens .hd{font-size:14px;}
+}
+
+/* 16-5 도해 · 인쇄 — 색이 빠져도 길이·해칭·단차·좌우가 남는다 */
+@media print{
+  .bk-dia{break-inside:avoid;}
+  .bk-dia figcaption{border-top-color:#000;color:#000;}
+  .bk-stair li{border-color:#000;}
+  .bk-stair .sc{border-color:#000;color:#000;}
+  .bk-sevens .fill{border-color:#000;background:#000;}
+  .bk-sevens .fill.hatch{
+    background:repeating-linear-gradient(45deg,#000 0 3px,#fff 3px 7px);
+  }
+  .bk-sevens .track{border-bottom-color:#000;}
+  .bk-twofold .cell.a,.bk-twofold .cell.b{border-color:#000;}
+}
+
+/* ── 16-0장. 도해 (그림 1~3) ────────────────────────────────────────────────
+   0장 담당이 추가한 블록. 기존 클래스는 하나도 고치지 않았다.
+   ⚠️ 접두사 `.bk-dg`(도해)를 쓴다 — 다른 장 담당이 `.bk-fig`·`.bk-dia`를
+      각자 다른 문법으로 정의했으므로 이름이 겹치면 서로를 덮어쓴다.
+
+   원칙 3개
+   1) 도해는 무채색(--c-map / --ink 계열)으로만 그린다. **색 채널 의존 0.**
+      구분은 [채움 패턴 + 글자 라벨 + 위치] 세 가지로만 만든다.
+      요소 7종의 색 문법(성경 남색·활동 청록·복선 자주…)과 절대 경쟁하지 않는다.
+   2) 도해에 **새 상자(4면 굵은 테두리)를 만들지 않는다.** 8번째 테두리 문법이
+      생기면 §5 3초 규칙이 무너진다. 도해의 정체는 <figcaption> 안의
+      「그림 N」 **글자**가 밝힌다(CSS 없이도 읽힌다).
+   3) 비율은 grid 분수(fr)로만 만든다. 고정 px 금지 — 좁은 화면에서 넘치지 않는다.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* 0장-도해 공통 */
+.bk-dg{margin:calc(var(--u)*4) 0;}
+.bk-dg figcaption{
+  margin-top:calc(var(--u)*1.6);
+  font-size:13px;line-height:1.7;color:var(--ink-2);
+}
+.bk-dg__no{
+  display:inline-block;margin-right:7px;padding:1px 8px;
+  border:1px solid var(--rule);
+  font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--ink-3);
+  white-space:nowrap;
+}
+
+/* 그림 1 · 66권 서가 — 책등 하나가 한 권.
+   구약=채운 책등 ▮ / 신약=빈 책등 ▯. 같은 39칸 격자를 쓰므로 39:27 길이가 그대로 보인다 */
+.bk-shelf{border-top:1px solid var(--rule);padding-top:calc(var(--u)*2);}
+.bk-shelf__hd{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 9px;
+  margin:0 0 6px;font-size:13px;color:var(--ink-2);
+}
+.bk-shelf__hd .mk{font-weight:700;color:var(--c-map);}
+.bk-shelf__hd b{font-size:15px;color:var(--ink);}
+.bk-shelf__row{
+  display:grid;grid-template-columns:repeat(39,1fr);gap:1px;
+  margin:0 0 calc(var(--u)*2);
+}
+.bk-shelf__row i{display:block;height:32px;}
+.bk-shelf__row--ot i{background:var(--c-map);border:1px solid var(--c-map);}
+.bk-shelf__row--nt i{background:none;border:1.5px solid var(--c-map);}
+.bk-shelf__split{display:flex;align-items:center;gap:9px;margin:0 0 calc(var(--u)*2);}
+.bk-shelf__split::before,.bk-shelf__split::after{
+  content:"";flex:1;border-top:2px solid var(--c-map);
+}
+.bk-shelf__split span{font-size:12.5px;font-weight:700;color:var(--ink-2);}
+.bk-shelf__mix{
+  margin:0;padding-top:calc(var(--u)*1.5);
+  border-top:1px dashed var(--rule);
+  font-size:13px;line-height:1.8;color:var(--ink-2);
+}
+.bk-shelf__mix b{color:var(--ink);margin-right:6px;}
+
+/* 그림 2 · 수미상관 — 두 끝이 서로 거울이다(왼쪽 굵은 선 ↔ 오른쪽 굵은 선).
+   가운데는 파선 한 줄로만 길게 흐른다 */
+.bk-arc__end{border:1px solid var(--rule);padding:12px 15px;}
+.bk-arc__end--first{border-left:5px solid var(--c-map);}
+.bk-arc__end--last{border-right:5px solid var(--c-map);text-align:right;}
+.bk-arc__tag{
+  display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-3);
+}
+.bk-arc__same{display:block;margin-top:4px;font-size:14px;color:var(--ink-2);}
+.bk-arc__pic{display:block;font-size:1.5rem;font-weight:700;line-height:1.35;}
+.bk-arc__mid{
+  margin:0;padding:15px 15px 15px 24px;
+  border-left:2px dashed var(--c-map);
+}
+.bk-arc__mid .lbl{
+  display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-3);
+}
+.bk-arc__mid .txt{display:block;font-size:15px;color:var(--ink-2);}
+.bk-arc__foot{
+  margin:calc(var(--u)*1.6) 0 0;padding-top:calc(var(--u)*1.4);
+  border-top:1px solid var(--rule);
+  text-align:center;font-size:15px;
+}
+
+/* 그림 3 · 열두 칸 위에 얹은 네 마디 — 길이(칸 수)가 곧 결론이다.
+   네 마디는 색이 아니라 채움 패턴으로 갈린다: ①앞부분만 ②꽉 참 ③사선 ④세로줄 */
+.bk-four{border-top:1px solid var(--rule);padding-top:calc(var(--u)*2);}
+.bk-four__scale{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;margin:0 0 5px;}
+.bk-four__scale i{display:block;font-style:normal;text-align:center;line-height:1.25;}
+.bk-four__scale b{display:block;font-size:11.5px;color:var(--ink-2);}
+/* 시대명은 눈금 한 칸(약 52px)에 한 줄로 들어가야 한다 — 「출애굽·광야」가 최장 */
+.bk-four__scale em{
+  display:block;font-style:normal;
+  font-size:8.5px;letter-spacing:-.04em;color:var(--ink-3);
+}
+.bk-four__row{
+  display:grid;grid-template-columns:1fr auto;gap:3px 10px;
+  margin:0 0 calc(var(--u)*1.6);
+}
+.bk-four__name{font-size:14px;font-weight:700;}
+.bk-four__val{font-size:12.5px;color:var(--ink-2);text-align:right;align-self:end;}
+.bk-four__track{
+  grid-column:1 / 3;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:1px;
+}
+.bk-four__track i{display:block;height:20px;border:1px solid var(--rule);}
+.bk-four__track i.on{border-color:var(--c-map);}
+.bk-four__row--a .bk-four__track i.on{
+  background:linear-gradient(to right,var(--c-map) 0 40%,transparent 40%);
+}
+.bk-four__row--b .bk-four__track i.on{background:var(--c-map);}
+.bk-four__row--c .bk-four__track i.on{
+  background:repeating-linear-gradient(45deg,var(--c-map) 0 2px,transparent 2px 5px);
+}
+.bk-four__row--d .bk-four__track i.on{
+  background:repeating-linear-gradient(90deg,var(--c-map) 0 2px,transparent 2px 4px);
+}
+
+/* 0장-도해 · 눈금 시대명은 한 칸이 좁아지기 전에 먼저 접는다.
+   글자를 쪼개 보이느니 지우는 편이 낫다 — 시대명은 표지 지도와 본문 표가 들고 있다 */
+@media (max-width:719px){
+  .bk-four__scale em{display:none;}
+}
+
+/* 0장-도해 · 모바일 */
+@media (max-width:640px){
+  .bk-dg figcaption{font-size:12.5px;}
+  .bk-shelf__row i{height:26px;}
+  .bk-shelf__split span{font-size:11.5px;}
+  .bk-arc__pic{font-size:1.3rem;}
+  .bk-arc__end{padding:11px 13px;}
+  .bk-arc__mid{padding:13px 13px 13px 20px;}
+  .bk-four__scale b{font-size:10.5px;}
+  .bk-four__name{font-size:13px;}
+  .bk-four__val{font-size:11.5px;}
+  .bk-four__track i{height:18px;}
+}
+
+/* 0장-도해 · 인쇄 — 배경 채움은 종이에서 사라진다.
+   채움으로 만든 구분을 전부 [테두리 굵기·종류]로 옮겨 남긴다 */
+@media print{
+  .bk-dg,.bk-shelf,.bk-arc,.bk-four{break-inside:avoid;}
+  .bk-dg figcaption{color:#000;font-size:9pt;}
+  .bk-dg__no{border-color:#000;color:#000;}
+
+  .bk-shelf,.bk-four{border-top-color:#000;}
+  .bk-shelf__row--ot i{background:none !important;border:3px solid #000;}
+  .bk-shelf__row--nt i{background:none !important;border:1px solid #000;}
+  .bk-shelf__split::before,.bk-shelf__split::after{border-top-color:#000;}
+  .bk-shelf__mix{border-top-color:#000;}
+
+  .bk-arc__end{border-color:#000;}
+  .bk-arc__mid{border-left-color:#000;}
+  .bk-arc__foot{border-top-color:#000;}
+
+  .bk-four__track i{background:none !important;border:1px solid #bbb;}
+  .bk-four__row--a .bk-four__track i.on{border:1px solid #000;border-left:6px solid #000;}
+  .bk-four__row--b .bk-four__track i.on{border:3px solid #000;}
+  .bk-four__row--c .bk-four__track i.on{border:2px dashed #000;}
+  .bk-four__row--d .bk-four__track i.on{border:2px dotted #000;}
+}
+
+/* ── 17. 도해 · 3장 ─────────────────────────────────────────────────────────
+   ⚠️ 접두사 `.bk-fig3` 을 쓴다 — 0장이 `.bk-dg`, 다른 장이 `.bk-dia` 를 이미
+      점유했다(장별 동시 작업). 기존 클래스는 한 줄도 고치지 않았다.
+      래퍼의 **겉모습은 `.bk-dg`·`.bk-dia` 와 같게** 맞춰 두었으므로,
+      나중에 편집장이 하나로 합칠 때는 이름만 find-replace 하면 된다.
+
+   도해 원칙 3개(0장 §16과 동일)
+     ① 무채색(--c-map / --ink 계열)만. **색 채널 의존 0건**
+     ② 도해용 새 상자(8번째 테두리 문법)를 만들지 않는다. 도해의 정체는
+        <figcaption> 안의 「그림 N」 **글자**가 밝힌다(CSS 없이도 읽힌다)
+     ③ 비율은 fr·% 로만. 고정 px 폭 금지 — 좁은 화면에서 넘치지 않는다
+   두 항을 색으로 가르는 곳 0건 — 넓이 + 글자 라벨(채움/사선 · 실선/파선)
+   + 채움 패턴, 3중으로만 가른다.
+   ------------------------------------------------------------------------- */
+
+/* 17-0 공통 (0장 .bk-dg 와 같은 겉모습) */
+.bk-fig3{margin:calc(var(--u)*4) 0;}
+.bk-fig3 figcaption{
+  margin-top:calc(var(--u)*1.6);
+  font-size:13px;line-height:1.7;color:var(--ink-2);
+}
+.bk-fig3__no{
+  display:inline-block;margin-right:7px;padding:1px 8px;
+  border:1px solid var(--rule);
+  font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--ink-3);
+  white-space:nowrap;
+}
+
+/* 17-1 여정 — 번호가 순서를 지고, 좁아지면 저절로 세로로 쌓인다 */
+.bk-trip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));gap:10px;
+  list-style:none;margin:calc(var(--u)*1.5) 0 0;padding:0;
+}
+.bk-trip li{
+  border:1px solid var(--rule);border-top:3px solid var(--c-map);
+  padding:9px 11px 10px;
+}
+.bk-trip b{display:block;font-size:14.5px;line-height:1.4;}
+.bk-trip .n{display:inline-block;min-width:1.5em;font-weight:700;color:var(--ink-3);}
+.bk-trip .d{display:block;margin-top:3px;font-size:13px;line-height:1.6;color:var(--ink-2);}
+.bk-trip .t{                            /* 본문이 준 시간만 배지로 단다 */
+  display:inline-block;margin-top:7px;padding:1px 9px;
+  border:1.5px solid var(--c-map);border-radius:999px;
+  font-size:11.5px;font-weight:700;letter-spacing:.02em;
+}
+
+/* 17-2 순서 — 무엇이 먼저인가. 실선(본문의 순서) / 파선+✗(아니라고 한 순서) */
+.bk-order{margin:calc(var(--u)*1.5) 0 0;}
+.bk-order__row{margin:0 0 10px;padding:11px 13px;border:1.5px solid var(--c-map);}
+.bk-order__row:last-child{margin-bottom:0;}
+.bk-order__row.is-not{border-style:dashed;}
+.bk-order__ttl{display:block;font-size:13px;letter-spacing:.02em;}
+.bk-order__row.is-not .bk-order__ttl{color:var(--ink-2);}
+.bk-order__steps{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 0;}
+.bk-order__steps span{border:1px solid var(--rule);padding:5px 10px;font-size:14px;line-height:1.4;}
+.bk-order__steps em{font-style:normal;color:var(--ink-3);}
+.bk-order__row.is-not .bk-order__steps span{border-style:dashed;color:var(--ink-2);}
+
+/* 17-3 진영 — 자리 하나를 보여 준다: 가운데.
+   테두리는 1px 무채 실선(진영의 가장자리일 뿐)이라 요소 7종 문법과 겹치지 않는다 */
+.bk-camp{
+  position:relative;margin:calc(var(--u)*2) 0 0;
+  padding:30px 14px 16px;border:1px solid var(--rule);
+}
+.bk-camp__lbl{
+  position:absolute;top:8px;left:13px;
+  font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ink-2);
+}
+.bk-camp__row{display:flex;justify-content:space-between;gap:8px;}
+.bk-camp__row i{flex:0 1 54px;height:17px;border:1px solid var(--rule);background:var(--paper-3);}
+.bk-camp__mid{display:flex;align-items:center;gap:10px;margin:18px 0;}
+.bk-camp__mid i{flex:0 0 auto;width:26px;height:17px;border:1px solid var(--rule);background:var(--paper-3);}
+.bk-camp__tent{
+  position:relative;flex:1 1 auto;
+  border:2px solid var(--c-map);background:var(--paper-2);
+  padding:12px 10px;text-align:center;
+}
+.bk-camp__tent::before{                 /* 천막 지붕 — 이것이 텐트라는 표시 */
+  content:"";position:absolute;top:-12px;left:50%;margin-left:-13px;
+  border-left:13px solid transparent;border-right:13px solid transparent;
+  border-bottom:12px solid var(--c-map);
+}
+.bk-camp__tent b{display:block;font-size:14.5px;}
+.bk-camp__tent em{display:block;font-style:normal;font-size:12.5px;line-height:1.55;color:var(--ink-2);}
+
+/* 17-4 지면 띠 — 한 띠 위에서 두 구간의 넓이를 견준다 */
+.bk-span{margin:calc(var(--u)*4) 0 0;}
+.bk-span__band{display:flex;height:30px;border:1.5px solid var(--c-map);}
+.bk-span__seg{position:relative;display:block;}
+.bk-span__seg.is-lift{flex:0 0 9%;background:var(--c-map);border-right:1.5px solid var(--c-map);}
+.bk-span__seg.is-form{
+  flex:1 1 auto;
+  background:repeating-linear-gradient(45deg,var(--c-map) 0 3px,transparent 3px 7px);
+}
+.bk-span__seg b{position:absolute;left:0;white-space:nowrap;font-size:12.5px;line-height:1.3;}
+.bk-span__seg.is-lift b{bottom:calc(100% + 9px);}
+.bk-span__seg.is-form b{top:calc(100% + 9px);}
+.bk-span__seg b::after{content:"";position:absolute;left:1px;width:1.5px;height:7px;background:var(--c-map);}
+.bk-span__seg.is-lift b::after{top:100%;}
+.bk-span__seg.is-form b::after{bottom:100%;}
+.bk-span__ends{
+  display:flex;justify-content:space-between;gap:10px;
+  margin:calc(var(--u)*5) 0 0;font-size:12px;color:var(--ink-3);
+}
+
+/* 17-5 도해 · 좁은 화면 */
+@media (max-width:640px){
+  .bk-span__seg b{font-size:11.5px;}
+  .bk-camp{padding:28px 10px 14px;}
+  .bk-camp__row i{flex-basis:40px;}
+  .bk-camp__mid i{width:18px;}
+  .bk-camp__mid{gap:8px;}
+  .bk-order__steps span{font-size:13px;}
+}
+
+/* 17-6 도해 · 인쇄 — 배경 채움이 안 찍혀도 넓이와 글자 라벨이 남는다 */
+@media print{
+  .bk-fig3{break-inside:avoid;}
+  .bk-fig3 figcaption{color:#000;font-size:9pt;}
+  .bk-fig3__no{border-color:#000;color:#000;}
+  .bk-trip li,.bk-trip .t{border-color:#000;}
+  .bk-order__row,.bk-order__steps span{border-color:#000;}
+  .bk-camp,.bk-camp__tent,.bk-camp__row i,.bk-camp__mid i{border-color:#000;}
+  .bk-camp__tent,.bk-camp__row i,.bk-camp__mid i{background:none !important;}
+  .bk-camp__tent::before{border-bottom-color:#000;}
+  .bk-span__band,.bk-span__seg.is-lift{border-color:#000;}
+  .bk-span__seg b::after{background:#000;}
+}
+
+/* 17-7 이어지는 실 — 칩 범례
+   ●/○ 글리프는 CSS content 라 뜻을 페이지 안에서 읽을 길이 없었다.
+   범례 한 줄을 HTML 글자로 두어 기호가 해독되게 한다(색 의존 0). */
+.bk-threads__legend{
+  margin:calc(var(--u)*-1.5) 0 calc(var(--u)*2);
+  font-size:12.5px;line-height:1.6;color:var(--ink-3);
+}
+@media print{
+  .bk-threads__legend{color:#000;font-size:9pt;}
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   18. 접근성 보정 (접근성 보정)
+   ─────────────────────────────────────────────────────────────────────────────
+   이 절은 덧쓰기 전용입니다. 위의 어떤 규칙도 지우거나 고치지 않았고,
+      전부 파일 끝에 새 선택자로만 얹었다. 통째로 지우면 v1.0 상태로 돌아간다.
+   🔴 0~3장 공용 파일이므로 아래 보정은 네 장 전부에 적용된다.
+      다만 `.bk-corner` `.bk-sub` `.bk-lbl--plain` 세 클래스는 **쓰는 쪽만** 바뀐다
+      (현재 02.html만 사용 · 나머지 장은 클래스를 붙이면 그대로 따라온다).
+
+   고친 이유
+   ① --ink-3 가 흰 종이에서 4.08:1 이었다(WCAG AA 본문 4.5:1 미달).
+      「되돌아갈 곳」·장절·도해 주석·낱말 포인터가 전부 이 색이라 실 피해가 크다.
+   ② 진도 압축 바의 지나온 칸 ↔ 아직 안 간 칸이 1.75:1 — 오직 색으로만 갈렸다.
+      채움/빈칸(모양)으로 갈라 색을 3차 채널로 되돌린다.
+   ③ 시간 눈금의 nowrap 이 320px(=1280px 400% 확대)에서 지면을 밀어냈다.
+   ============================================================================= */
+
+/* 18-1 본문 대비 — 흰 종이에서 4.90:1 (기존 4.08:1) */
+:root{ --ink-3:#6b717d; }
+@media (prefers-color-scheme:dark){
+  :root{ --ink-3:#8b8880; }   /* 어두운 화면에서는 5.07:1 로 이미 통과라 유지 */
+}
+
+/* 18-2 진도 압축 바 — 색이 아니라 [채움 ↔ 빈칸 + 높이]로 세 상태를 가른다.
+   글자 채널은 옆의 「N / 12 · 시대명」이 이미 들고 있다 */
+.bk-run__bars i{border:1px solid var(--rule);}                 /* 앞 칸  = 빈 칸 */
+.bk-run__bars i.done{background:var(--ink-3);border-color:var(--ink-3);}  /* 지난 칸 = 채움 */
+.bk-run__bars i.now{border-color:var(--c-map);}                /* 현재   = 채움 + 높이 */
+
+/* 18-3 지면 넘침 — 좁은 화면에서 시간 눈금의 설명이 줄바꿈되게 푼다 */
+@media (max-width:640px){
+  .bk-bars .val{white-space:normal;}
+}
+
+/* 18-4 다음 칸 버튼 — 이 지면의 유일한 조작 요소다.
+   테두리 1.47:1 → 4.90:1 · 손가락 표적 44px 확보 */
+.bk-next{border-color:var(--ink-3);min-height:44px;}
+
+/* 18-5 sticky 진도 바가 방금 이동한 곳을 덮지 않게 한다 */
+html{scroll-padding-top:56px;}
+
+/* 18-6 제목 위계 — 겉모습은 그대로, 문서 구조만 바로잡는다.
+   장 표지 h1 다음이 곧바로 h3(코너 제목)이라 단계를 하나 건너뛰고 있었다.
+   코너 제목을 h2 로, 「오늘로」 안의 소제목을 h3 로 올리면서
+   글자 크기·여백·장식선은 원래 h3/h4 값을 그대로 복제한다(픽셀 변화 0). */
+h2.bk-corner{
+  font-size:1.05rem;line-height:1.35;letter-spacing:.02em;font-weight:700;
+  margin:var(--gap-in) 0 var(--u);
+  padding-top:0;border-top:none;
+}
+h2.bk-corner::before{
+  content:"";display:block;width:2.2rem;height:2px;
+  background:var(--ink);margin-bottom:calc(var(--u)*1.2);
+}
+.bk-zoom h2.bk-corner{margin-top:0;}
+.bk-recap h2.bk-corner{margin-top:0;}
+.bk-recap h2.bk-corner::before{display:none;}
+h3.bk-sub{
+  font-size:1rem;letter-spacing:normal;
+  margin:calc(var(--u)*2.5) 0 var(--u);
+}
+h3.bk-sub::before{display:none;}
+
+/* 18-7 라벨 글리프 억제 — 한 상자 안의 작은 제목에는 블록 글리프를 찍지 않는다 */
+.bk-lbl--plain::before{content:"" !important;}
+
+/* 18-8 인쇄 — 작은 글씨는 흑백 프린터에서 회색 망점이 되어 가장 먼저 죽는다.
+   내용을 지고 있는 것(되돌아갈 곳·장절·도해 주석·범례)만 검정으로 올린다 */
+@media print{
+  .bk-check .back,.bk-gloss .back,.bk-band cite,.bk-foot small,
+  .bk-scr .by,.bk-solo .ease,.bk-talk .ease,.bk-threads__chips i,
+  .bk2-fig cite,.bk2-fig .bk2-note,.bk2-ledger .cat,.bk2-ledger .none,
+  .bk2-line .rel,.bk2-line .go,.bk2-time .go,
+  .bk-dia figcaption,.bk-fig3 figcaption,.bk-dg figcaption{color:#000;}
+  .bk-oneline::before{color:#000;}
+  .bk-run__bars i{border:none;}
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   19. 접근성 보정 · 2차 (접근성 보정)
+   ─────────────────────────────────────────────────────────────────────────────
+   🔴 §18과 같이 **덧쓰기 전용**이다. 위의 어떤 규칙도 지우거나 고치지 않았다.
+   🔴 §18이 이미 잡은 것(--ink-3 대비 · 진도 바 채움 · 다음 칸 44px · 제목 위계
+      `.bk-corner`/`.bk-sub`)은 손대지 않는다. 겹치지 않는 것만 얹는다.
+
+   고친 이유
+   ① 「한눈에」 비율 막대의 **길이가 곧 데이터인데 그 길이가 눌리고 있었다.**
+      flex 안에서 막대는 줄어들고(shrink) 옆 설명은 안 줄어들어, 360px에서
+      「아홉 개 장」 막대가 제 길이의 30%까지 깎였다. 색약 대응의 1차 채널이
+      길이인데 그 채널이 화면 폭에 따라 거짓말을 한다.
+      → 이름 칸을 뺀 **나머지를 100%로 삼는 격자**로 바꾼다(`.bk2-time`과 같은 방식).
+   ② 그림 3 눈금의 시대명이 **8.5px**이었다. 한글 8.5px은 글자가 아니라 무늬다.
+   ③ 그림 2의 「◐ 처음」·「마지막 ◑」 라벨은 색약 대응의 **글자 채널**인데
+      11.5px + 가장 옅은 잉크였다. 구분을 지고 있는 글자가 가장 약했다.
+   ④ 인쇄에서 채움(background)은 찍히지 않는데 비율 막대만 대비책이 없었다.
+   ⑤ 인쇄에서 접이식 **요약줄이 통째로 숨겨져** 「여기까지」의 완충 문구
+      (“떠오르지 않으셔도 됩니다”)와 재등장 낱말의 **이름**이 사라졌다.
+      워크북으로 뽑으면 질문 2문과 답만 남아 압박 완충이 0이 된다. 0~3장 공통.
+   ============================================================================= */
+
+/* 19-1 비율 막대 — 막대는 줄어들지 않는다. 이름 칸을 뺀 나머지가 100%다.
+   숫자 라벨(.val)은 아랫줄로 내려 막대가 제 길이를 다 쓰게 한다 */
+.bk-bars .row{
+  display:grid;
+  grid-template-columns:8.5em minmax(0,1fr);
+  align-items:center;
+  column-gap:10px;row-gap:3px;
+}
+.bk-bars .name{grid-column:1;grid-row:1;}
+.bk-bars .bar{grid-column:2;grid-row:1;}
+.bk-bars .val{grid-column:2;grid-row:2;white-space:normal;}
+@media (max-width:640px){
+  .bk-bars .row{grid-template-columns:6.5em minmax(0,1fr);}
+}
+
+/* 19-2 그림 3 눈금의 시대명 — 8.5px → 10px, 잉크도 한 단계 진하게.
+   길어지는 「출애굽·광야」·「새 하늘과 새 땅」은 두 줄로 접히게 둔다.
+   (720px 미만에서 숨기는 기존 규칙은 그대로 살아 있다) */
+.bk-four__scale em{font-size:10px;letter-spacing:-.02em;color:var(--ink-2);}
+
+/* 19-3 그림 2 「처음 / 마지막」 라벨 — 색약 대응의 2차 채널이라 가장 또렷해야 한다 */
+.bk-arc__tag{font-size:12px;color:var(--ink-2);}
+.bk-arc__mid .lbl{font-size:12px;color:var(--ink-2);}
+
+/* 19-4 「→ 옆으로」는 진짜로 옆으로 밀리는 폭에서만 띄운다.
+   표는 min-width 520px 인데 641px 이상에서는 지면이 늘 그보다 넓다.
+   밀 것이 없는데도 안내가 떠 있으면 화면 낭독기가 매 표마다 헛말을 읽는다 */
+@media (min-width:641px){
+  .bk-scroll::after{content:"";padding-top:0;}
+}
+
+/* 19-5 인쇄 */
+@media print{
+  /* 채움은 종이에 안 찍힌다 — 구분을 테두리(실선/파선)로 옮겨 남긴다.
+     길이는 그대로이므로 1차 채널은 흑백에서도 온전하다 */
+  .bk-bars .bar{background:none !important;border:1.5px solid #000;}
+  .bk-bars .row.alt .bar{border-style:dashed;}
+
+  /* 괘선이 종이에서 너무 옅다(#d8d5cd). 상태 구분(파선=앞 칸 / 실선=지난 칸)은 유지 */
+  .bk-map li{border-color:#888;}
+  .bk-map li.done{border-color:#333;}
+  .bk-scroll th,.bk-scroll td{border-color:#999;}
+
+  /* 접이식 요약줄을 종이에도 남긴다. 숨기면 답만 남고 완충 문구와
+     재등장 낱말의 이름이 사라진다(= 답에 이름표가 없어진다) */
+  details > summary{display:block !important;min-height:0 !important;}
+  details.bk-term > summary::after{content:"" !important;}   /* 「펼치기」는 종이에서 뜻이 없다 */
+  .bk-check details > summary{color:#000;}
+  .bk-check details > summary::before,
+  .bk-check details[open] > summary::before{content:"" !important;}  /* ▸▾ 는 화면 전용 */
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   20. 접근성 보정 · 1장 도해 (접근성 보정)
+       ⚠️ 0장 담당이 §19를 먼저 점유해 번호를 20으로 옮겼다(같은 시각 병행 작업).
+   ─────────────────────────────────────────────────────────────────────────────
+   🔴 §18·§19 와 같은 규칙 — **덧쓰기 전용**이다. 위의 어떤 줄도 지우지 않았다.
+      §18-1 의 --ink-3 보정(4.90:1)으로 화면 대비는 이미 통과한다.
+      여기서 남은 것은 **흑백 인쇄 한 가지**다.
+
+   고친 이유 — 1장 도해(그림 1~3)에서 **색약 대체 채널을 지고 있는 글자**가
+   인쇄 시 회색으로 남아 있었다. §18-8 은 figcaption 까지만 검정으로 올렸다.
+     · `.bk-dia__axis`   = 「위는 채워진 막대, 아래는 사선 막대」 — 모양 채널 해독 키
+     · `.bk-twofold .ct` = 「어긋남」 / 「남겨 주시는 것」 — 두 칸을 가르는 글자 라벨
+     · 장절 칩·단 번호   = 도해가 본문 어디서 왔는지 되짚는 유일한 단서
+   이 넷이 망점으로 죽으면 도해가 "무늬만 남은 그림"이 된다. 색은 손대지 않는다.
+   ============================================================================= */
+@media print{
+  .bk-dia__axis,
+  .bk-twofold .ct,.bk-twofold .plus,.bk-twofold .pair cite,
+  .bk-sevens .hd cite,.bk-sevens .mean,
+  .bk-stair .ln{color:#000;}
+  .bk-stair .hd b::before{color:#000;}
+
+  /* 대조표(보조 도해 ⓐ) 격자 — --rule(#d8d5cd)은 흰 종이에서 1.47:1 이라
+     인쇄하면 표가 사라지고 글자만 흩어진다. §19-4 가 .bk-scroll 에 쓴 값과 맞춘다.
+     머리칸의 회색 배경도 종이에는 안 찍히므로 굵기로 대신 세운다 */
+  .bk-compare th,.bk-compare td{border-color:#999;}
+  .bk-compare th{border-bottom:2px solid #000;}
+}
+
+/* 20-2 화면에서만 숨는 보조 텍스트.
+   sticky 진도 바는 화면에서 12칸 막대 옆에 붙어 있어 뜻이 자명하지만,
+   소리로 들으면 「1 / 12 · 원역사」뿐이라 무엇의 1/12인지 알 길이 없다.
+   막대는 aria-hidden 이므로 글자 한 마디를 눈에만 안 보이게 덧댄다. */
+.bk-sr{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   21. 접근성 보정 · 3장 도해 (접근성 보정)
+       ⚠️ §19(0장)·§20(1장)이 먼저 번호를 가져가 21로 붙인다(같은 시각 병행 작업).
+   ─────────────────────────────────────────────────────────────────────────────
+   🔴 §18·§19·§20 과 같은 규칙 — **덧쓰기 전용**이다. 위의 어떤 줄도 지우지 않았다.
+      선택자가 전부 `.bk-fig3` 계열(3장 전용 접두사)이라 0~2장 지면에는 닿지 않는다.
+      화면 대비는 §18-1 의 --ink-3 보정(4.90:1)으로 이미 통과한다.
+      여기서 남은 것은 §20 과 같은 자리 — **흑백 인쇄** 하나다.
+
+   고친 이유 — §18-8 은 `.bk-fig3 figcaption` 까지만 검정으로 올렸다. 그런데
+   3장 도해에서 **구분과 순서를 지고 있는 글자는 캡션이 아니라 그림 안쪽**에 있고,
+   그쪽이 --ink-3 / --ink-2 로 남아 흑백 프린터에서 회색 망점이 된다.
+     · `.bk-trip .n`    = 1~6 번호 — 「오늘 지나갈 길」의 순서 채널 그 자체
+     · `.bk-trip .d`    = 각 칸이 무엇인지 말하는 유일한 글자
+     · `.bk-span__ends` = 「출애굽기 12장 ↔ 신명기 끝」 — 띠의 양 끝 눈금.
+                          이게 죽으면 넓이 비교가 **무엇의** 넓이인지 알 수 없다
+     · `.bk-order` ✗행  = 「본문이 아니라고 한 순서 · 파선」 — 파선(모양)과 짝을 이루는
+                          글자 채널. 파선만 남고 글자가 죽으면 두 줄이 같아 보인다
+     · `.bk-camp` 라벨  = 「백성」·「걷었다 폈다 하는 천 텐트」 — 가운데라는 *자리*를
+                          읽게 하는 글자
+   색은 손대지 않는다.
+   ============================================================================= */
+@media print{
+  .bk-trip .n,.bk-trip .d,
+  .bk-span__ends,
+  .bk-order__steps em,
+  .bk-order__row.is-not .bk-order__ttl,
+  .bk-camp__lbl,.bk-camp__tent em{color:#000;}
+}
+
+/* 21-2 그림 3 「텐트를 치신 자리」 — 백성 칸이 화면에서 사실상 안 보였다.
+   이 칸들은 글자가 한 자도 없는 **순수 그래픽**이고, "가운데"라는 이 그림의
+   결론 전체를 지고 있다. 그런데 테두리가 --rule(#d8d5cd) = 흰 종이 대비 1.47:1,
+   채움이 --paper-3(#efece5) = 1.18:1 이었다. WCAG 1.4.11(내용 이해에 필요한
+   그래픽 3:1) 미달이고, 밝은 화면·저시력에서는 텐트만 혼자 떠 있는 그림이 된다.
+   → 의미를 진 칸만 --ink-3(흰 종이 4.90:1 · 어두운 화면 5.15:1)로 올린다.
+   🔴 바깥 진영 테두리(.bk-camp)는 --rule 그대로 둔다. 그걸 같이 올리면 §17 이
+      금지한 「8번째 테두리 상자」가 되어 요소 7종의 3초 규칙을 잠식한다.
+   색을 바꾸는 것이 아니라 **잉크 농도만** 올리는 것이라 적록 조합은 여전히 0건. */
+.bk-camp__row i,.bk-camp__mid i{border-color:var(--ink-3);}
+
+/* 21-3 그림 2 「무엇이 먼저인가」 — 단계 칸의 실선/파선이 색약 대체 채널인데
+   그 테두리도 --rule(1.47:1)이라 두 줄이 사실상 같아 보였다.
+   바깥 행 테두리(1.5px --c-map)와 ✗·「파선」 글자가 이미 구분을 지고 있으므로
+   이건 네 번째 채널이지만, 안 보이는 채널은 채널이 아니다. */
+.bk-order__steps span{border-color:var(--ink-3);}
+
+/* 21-4 🔴 21-2·21-3 은 파일 끝에 있어 §17-6 인쇄 블록보다 뒤에 온다.
+   미디어 쿼리는 우선순위를 올려 주지 않으므로, 그냥 두면 종이에서도 #000 대신
+   --ink-3 이 이겨 버린다(회색 망점 = 방금 고친 것을 도로 무르는 셈).
+   §17-6 이 정한 검정을 여기서 다시 세운다. */
+@media print{
+  .bk-camp__row i,.bk-camp__mid i,
+  .bk-order__steps span{border-color:#000;}
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   22. 학생 시선 보정 — 0장 ()
+   렌즈 = 성경을 한 번도 안 읽은 27세가 휴대폰으로 링크를 받아 연다.
+   §18~§21 과 같은 규칙 — **덧쓰기 전용.** 위 규칙은 한 줄도 지우지 않았다.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 22-1 서지 한 줄 (`.bk-half`) — 「이 책을 여는 글」 위.
+   첫 화면 문제: 링크를 받은 사람이 처음 보는 것이 저자의 개인 고백이고,
+   그때까지 "이게 뭔지" 알려 주는 글자가 화면에 하나도 없었다
+   (책 이름은 브라우저 <title> 안에만 있었다 — 교육공학 보정 ⑬ 권고 (가)).
+   🔴 학습 장치가 아니라 **표지 정보**다. 사양서 §2 「이 면은 교재 장치 0건」을 지키려고
+      상자·색·글리프·아이콘을 하나도 쓰지 않았다 — 글자와 가는 밑줄 하나뿐이다.
+      요소 7종 어느 것과도 겹치지 않으므로 3초 규칙(§12-1)을 잠식하지 않는다.
+   좁아지면 두 줄로 접힌다(책 이름 → 장 이름 순서 그대로). */
+.bk-half{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;
+  margin:calc(var(--u)*5) 0 calc(var(--u)*4);
+  padding-bottom:calc(var(--u)*1.5);
+  border-bottom:1px solid var(--rule);
+  font-size:13px;font-weight:700;letter-spacing:.06em;line-height:1.5;
+  color:var(--ink-3);
+}
+.bk-half span{font-weight:400;letter-spacing:.02em;}
+
+/* 22-2 밀 필요가 없는 표까지 옆으로 밀렸다 (`.bk-scroll--fit`).
+   `.bk-scroll table` 의 min-width:520px 은 열이 넓은 표를 위한 하한인데
+   0장의 두 표 모두에 똑같이 걸려 있었다.
+     · 「네 마디」 — 세 열이 전부 짧은데도 360px 에서 「해당 시대」가 화면 밖으로 나갔다.
+     · 「열두 칸 지도」 — 밀려나는 열이 하필 「한 줄」이었다. 이 표에서 계속 읽고 싶게
+       만드는 칸이 그 열인데(“모든 것이 어긋나기 시작한 자리”) 밀지 않으면 안 보였다.
+   → 하한만 풀어 어절 단위로 접히게 한다. `word-break:keep-all` 은 그대로라 낱말이 안 쪼개진다.
+   표 구조(thead·scope)·region·tabindex 를 하나도 건드리지 않았으므로
+   접근성 보정 ④⑤ 의 조치는 그대로 살아 있다. 641px 이상 폭에서는 변화 0(하한이 원래 안 걸린다).
+   overflow-x:auto 는 안전망으로 남겨 두되, 밀 것이 없으니 「→ 옆으로」 안내만 거둔다. */
+.bk-scroll--fit table{min-width:0;}
+.bk-scroll--fit::after{display:none;}
+@media (max-width:640px){
+  .bk-scroll--fit table{font-size:13.5px;}
+  .bk-scroll--fit th,.bk-scroll--fit td{padding:6px 7px;line-height:1.55;}
+}
+
+/* 22-3 인쇄 — 서지 한 줄은 종이에서 표제지 구실을 하므로 남긴다.
+   다만 화면용 회색은 종이에서 사라지니 검정으로 세우고, §8 「배경 전부 해제」를 따른다. */
+@media print{
+  .bk-half{
+    color:#000;border-bottom-color:#000;
+    margin:0 0 10mm;padding-bottom:2mm;font-size:9pt;
+  }
+}
