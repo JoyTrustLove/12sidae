@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>『12시대』 1. 원역사시대 워크북</title>
+<meta name="description" content="『12시대』 1. 원역사시대 워크북 · 창세기 1~11장 · 오늘의 한 단어: 확산">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="12시대">
+<meta property="og:title" content="『12시대』 1. 원역사시대 워크북">
+<meta property="og:description" content="창세기 1~11장 · 오늘의 한 단어: 확산 · 빈칸을 채우며 원역사시대를 따라갑니다.">
+<meta name="twitter:card" content="summary">
+<style>
+:root{
+  --ink:#1F2B45;--txt:#111111;--sub:#33373F;--rule:#6B6F76;--wline:#555555;
+  --hair:#C5CAD1;--tint:#EEF0F3;--bar:#3A3F48;--paper:#FFFFFF;--desk:#E9ECF1;
+  --sans:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  --serif:"Batang","바탕","AppleMyungjo","Noto Serif KR",serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--desk);color:var(--txt);font-family:var(--sans);font-size:17px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+.paper{max-width:820px;margin:28px auto;background:var(--paper);padding:44px 52px 36px;box-shadow:0 1px 3px rgba(31,43,69,.12),0 8px 24px rgba(31,43,69,.06)}
+b,strong{font-weight:700}
+
+/* 머리 */
+.kicker{margin:0;font-size:15px;font-weight:700;color:var(--ink)}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+h1{margin:0;font-size:40px;line-height:1.2;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.name{border:1.5px solid var(--ink);border-radius:6px;padding:8px 14px;font-weight:700;color:var(--ink);white-space:nowrap;font-size:15px}
+.name span{display:inline-block;width:110px;border-bottom:1.5px solid var(--ink);margin-left:6px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:16px 0 12px;color:var(--sub);font-size:15px}
+.meta .sep{color:var(--rule)}
+.pill{border:1.5px solid var(--ink);border-radius:999px;padding:1px 12px;color:var(--txt)}
+.pill b{color:var(--ink)}
+
+/* 열두 시대 칸 */
+.eras{list-style:none;margin:0 0 14px;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.eras li{border:1px solid var(--rule);border-radius:4px;padding:3px 8px;font-size:13.5px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eras li b{font-weight:700}
+.eras li.now{border:2px solid var(--ink);background:var(--tint);font-weight:700;color:var(--ink)}
+
+.guide{border:1px solid var(--rule);border-radius:10px;padding:10px 16px;font-size:15px;margin:0 0 6px}
+
+/* 큰 절 */
+h2{font-size:22px;font-weight:800;color:var(--ink);margin:30px 0 14px;padding-top:18px;border-top:1px solid var(--hair);position:relative}
+h2::after{content:"";display:block;height:2px;background:var(--ink);margin-top:8px}
+
+/* 강사의 말 */
+.voice{border-left:3px solid var(--ink);padding:2px 0 2px 14px;margin:0 0 18px}
+.voice p{margin:0}
+.voice .vt{font-weight:700;color:var(--ink)}
+
+/* 시간선 */
+.tl{position:relative}
+.row{display:grid;grid-template-columns:118px 1fr;column-gap:18px}
+.lab{padding-top:1px;text-align:left}
+.lab small{display:block;font-size:13px;color:var(--sub);line-height:1.3}
+.lab b{display:block;font-size:17px;color:var(--ink);line-height:1.35}
+.body{position:relative;padding:0 0 18px 22px;border-left:2px solid var(--ink)}
+.body::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--ink)}
+.row.open .body::before{background:var(--paper);border:2px solid var(--ink);width:10px;height:10px;left:-6px}
+.row.last .body{border-left-color:transparent}
+.row.last .body::after{content:"";position:absolute;left:-2px;top:0;height:22px;border-left:2px solid var(--ink)}
+.body p{margin:0 0 8px}
+.body > p:first-child{margin-top:0}
+.ask{font-weight:700;color:var(--ink)}
+.dia{list-style:none;padding:0;margin:6px 0 0}
+.dia li{position:relative;padding-left:20px;font-weight:700;color:var(--ink)}
+.dia li::before{content:"◆";position:absolute;left:0;font-size:13px;top:2px}
+.key{font-weight:700;color:var(--ink);margin:10px 0 8px}
+.key::before{content:"▶ "}
+
+/* 빈칸 */
+.bl{display:inline-flex;align-items:baseline;gap:2px;white-space:nowrap}
+.bl i{font-style:normal;font-weight:700;color:var(--ink)}
+.bl span{display:inline-block;width:7.5em;border-bottom:1.5px solid var(--ink);height:1.1em;vertical-align:-2px}
+.bl.s span{width:5em}
+
+/* 성경 인용 */
+.q{position:relative;margin:8px 0 12px;padding:0 0 0 14px;border-left:2px solid var(--bar);font-family:var(--serif);font-size:18px;line-height:1.85;color:var(--txt)}
+.q p{margin:0 0 6px}
+.q cite{font-family:var(--sans);font-style:normal;font-size:14px;color:var(--sub);white-space:nowrap}
+.q.pen::before{content:"✎";position:absolute;left:-36px;top:50%;transform:translateY(-50%);font-family:var(--sans);font-size:26px;color:var(--ink)}
+
+/* 참고 상자 */
+.note{border:1.5px dashed var(--rule);padding:10px 14px;font-size:15px;line-height:1.7;margin:10px 0 12px}
+.note b{color:var(--ink)}
+
+/* 비교 상자 */
+.cmp{display:grid;grid-template-columns:1fr 28px 1fr;align-items:stretch;margin:2px 0 12px}
+.box{border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.box h4{margin:0;padding:6px 12px;background:var(--tint);border-bottom:1px solid var(--rule);font-size:15px;color:var(--ink)}
+.box p{margin:0;padding:10px 12px;font-size:16px}
+.arrow{display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--ink)}
+
+/* 오늘날의 바벨탑 */
+.today{border:1px solid var(--rule);border-radius:6px;padding:10px 14px}
+.today ul{list-style:none;margin:0 0 8px;padding:0 0 8px;border-bottom:1px solid var(--hair)}
+.today li{position:relative;padding-left:18px}
+.today li::before{content:"■";position:absolute;left:0;font-size:11px;top:4px;color:var(--ink)}
+.today .big{font-size:20px;font-weight:800;color:var(--ink);margin:4px 0 0}
+
+/* 네 가지 */
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 4px}
+.four div{border:1px solid var(--rule);border-radius:6px;text-align:center;padding:8px 6px;line-height:1.35}
+.four small{display:block;font-size:13.5px;color:var(--sub);min-height:2.7em;display:flex;align-items:center;justify-content:center}
+.four b{display:block;font-size:22px;color:var(--ink);border-top:1px solid var(--hair);padding-top:6px;margin-top:4px}
+
+/* 함께 나누기 */
+.lead{margin:0 0 12px}
+.share{list-style:none;margin:0;padding:0}
+.share li{border:1px solid var(--rule);border-radius:10px;padding:12px 16px 14px;margin:0 0 16px}
+.share li.must{border:3px double var(--ink)}
+.share .qn{display:flex;gap:10px}
+.share .qn i{flex:none;font-style:normal;font-weight:700;color:var(--ink);border:1.5px solid var(--ink);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px}
+.share .qn p{margin:0}
+.lines{margin:8px 0 0 36px}
+.lines span{display:block;height:34px;border-bottom:1px solid var(--wline)}
+
+.read{display:inline-block;border:1.5px solid var(--ink);border-radius:6px;padding:1px 12px;font-weight:700;color:var(--ink);margin-left:6px}
+
+/* 빈칸 답 */
+details.ans{margin:22px 0 0;border-top:2px solid var(--ink);padding-top:10px}
+details.ans summary{cursor:pointer;font-weight:800;color:var(--ink);list-style:none}
+details.ans summary::-webkit-details-marker{display:none}
+details.ans summary::before{content:"▸ "}
+details.ans[open] summary::before{content:"▾ "}
+.anslist{display:flex;flex-wrap:wrap;gap:4px 18px;margin:8px 0 0;padding:0;list-style:none;color:var(--ink)}
+
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-top:22px;padding-top:10px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--sub)}
+.foot a{color:var(--ink)}
+
+/* 휴대폰 */
+@media (max-width:640px){
+  body{font-size:16px;background:var(--paper)}
+  .paper{margin:0;padding:22px 16px 28px;box-shadow:none}
+  h1{font-size:31px}
+  .head{flex-direction:column;align-items:flex-start;gap:10px}
+  .eras{grid-template-columns:repeat(2,1fr)}
+  .eras li{white-space:normal;line-height:1.35;padding:4px 8px}
+  .meta .sep{display:none}
+  .row{grid-template-columns:82px 1fr;column-gap:12px}
+  .lab b{font-size:15.5px}
+  .body{padding-left:16px}
+  .q{font-size:16.5px}
+  .q.pen{padding-left:14px}
+  .q.pen::before{position:static;display:block;transform:none;font-size:20px;line-height:1;margin-bottom:2px}
+  .cmp{grid-template-columns:1fr;row-gap:4px}
+  .arrow{transform:rotate(90deg);height:22px}
+  .four{grid-template-columns:repeat(2,1fr)}
+  .lines{margin-left:0}
+}
+@media print{
+  body{background:#fff}
+  .paper{box-shadow:none;margin:0;max-width:none;padding:0}
+  details.ans{display:block}
+}
+</style>
+</head>
+<body>
+<main class="paper">
+
+<p class="kicker">『12시대』</p>
+<div class="head">
+  <h1>1. 원역사시대</h1>
+  <div class="name">이름:<span></span></div>
+</div>
+<p class="meta">창세기 1~11장 <span class="sep">|</span> <span class="pill">오늘의 한 단어: <b>확산</b></span> <span class="sep">|</span> 성경 인용은 개역개정</p>
+
+<ol class="eras" aria-label="열두 시대">
+  <li class="now">▶ 1. 원역사시대</li>
+  <li>2. 족장시대</li>
+  <li>3. 출애굽 &amp; 광야시대</li>
+  <li>4. 가나안 정복시대 &amp; 분배시대</li>
+  <li>5. 사사시대</li>
+  <li>6. 단일왕국시대</li>
+  <li>7. 분열왕국시대</li>
+  <li>8. 포로시대</li>
+  <li>9. 포로귀환시대</li>
+  <li>10. 예수시대</li>
+  <li>11. 교회시대</li>
+  <li>12. 새 하늘과 새 땅</li>
+</ol>
+
+<p class="guide">빈칸은 수업 중에 답을 불러 드립니다. ✎ 표시가 붙은 빈칸은 화면에 나온 성경 낱말 그대로 적습니다. 답은 맨 아래 「빈칸 답 보기」를 누르면 펼쳐집니다.</p>
+
+<h2>원역사시대 따라가기</h2>
+
+<div class="voice">
+  <p class="vt">강사가 이번 수업을 준비하면서 느낀 점</p>
+  <p>하나님께서 이 땅에 보여 주시는 모든 일들에는 하나님의 뜻하신 계획이 있고, 그 계획들이 하나님의 통치 아래 이루어지고 있다는 것을 깨닫게 되었습니다.</p>
+</div>
+
+<div class="tl">
+
+<div class="row">
+  <div class="lab"><small>Creation</small><b>창조</b></div>
+  <div class="body">
+    <p class="ask">하나님께서 세상을 창조하신 목적은 무엇이었을까요?</p>
+    <p>하나님과 인간이 함께 <span class="bl"><i>①</i><span></span></span>하며, 하나님의 형상을 따라 창조된 인간이 이 땅을 다스리고 관리하는 것(창 1:26~28)</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="lab"><b>에덴동산</b></div>
+  <div class="body">
+    <p>하나님의 창조물이 완전하게 조화를 이루는 공간이었습니다. 에덴동산에서 인간은 하나님과의 교제가 너무나 자연스러웠습니다.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="lab"><small>The Fall</small><b>타락</b></div>
+  <div class="body">
+    <p>뱀은 이렇게 유혹했습니다.</p>
+    <blockquote class="q"><p>너희가 그것을 먹는 날에는 너희 눈이 밝아져 하나님과 같이 되어 선악을 알 줄 하나님이 아심이니라 <cite>(창 3:5)</cite></p></blockquote>
+    <p>이것은 단순히 열매를 먹은 문제가 아니라, 창조주의 자리를 빼앗으려 한 <span class="bl"><i>②</i><span></span></span>의 죄였습니다.</p>
+    <p>하나님의 말씀을 의심하고, 하나님 없이도 선악을 판단할 수 있다고 믿은 것. 이것이 인간 타락의 본질이었습니다.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="lab"><b>가인 &amp; 아벨</b></div>
+  <div class="body">
+    <p>인간의 죄는 멈추지 않았습니다. 아담과 하와의 아들이었던 가인은 동생 아벨을 질투하게 되었고, 결국 아벨을 죽였습니다.</p>
+    <ul class="dia">
+      <li>가인과 아벨 사건과 홍수 심판, 이 두 시점 사이에 무언가 더 있지 않을까?</li>
+      <li>왜 하나님께서는 홍수 심판을 결심하게 되셨을까?</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="lab"><b>라멕의 노래</b></div>
+  <div class="body">
+    <div class="cmp">
+      <div class="box"><h4>가인 (창 4:13~14)</h4><p>동생을 죽인 뒤, 자신에게 닥칠 형벌이 너무 무겁다고 호소하며 누가 자신을 죽일까 <span class="bl"><i>③</i><span></span></span>합니다.</p></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="box"><h4>라멕 (창 4:23~24)</h4><p>그의 후손인 라멕은 사람을 죽이는 죄를 지었음에도 불구하고, 그 죄에 대해 부끄러워하지 않고 오히려 노래를 만들어 <span class="bl"><i>④</i><span></span></span>을 했다고 합니다.</p></div>
+    </div>
+    <blockquote class="q pen"><p>가인을 위하여는 벌이 칠 배일진대 라멕을 위하여는 벌이 <span class="bl"><i>⑤</i><span></span></span> 배이리로다 하였더라 <cite>(창 4:24)</cite></p></blockquote>
+    <p class="note"><b>참고:</b> 라멕이 멜로디를 붙여 노래했다는 뜻이 아닙니다. 다윗의 시처럼 병행법(같은 뜻을 다른 말로 반복하는 히브리 시 형식)으로 쓰였다는 것입니다.</p>
+    <p class="key">중요한 것은, 이렇게 ‘인류의 죄’가 <span class="bl"><i>⑥</i><span></span></span>되어 가고 있다는 것입니다.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="lab"><b>홍수 심판을 결정하신 하나님</b></div>
+  <div class="body">
+    <blockquote class="q">
+      <p>여호와께서 사람의 죄악이 세상에 가득함과 그의 마음으로 생각하는 모든 계획이 항상 악할 뿐임을 보시고 <cite>(창 6:5)</cite></p>
+      <p>땅 위에 사람 지으셨음을 한탄하사 마음에 근심하시고 <cite>(창 6:6)</cite></p>
+    </blockquote>
+    <p class="note"><b>참고:</b> 하나님의 아들들? 사람의 딸들? (창 6:1~2) <b>해석이 크게 갈리는</b> 어려운 본문입니다. 여러 견해(타락 천사설·왕족설 등) 중 <b>우리가 따르는 것은 셋 계열설</b>입니다. ‘사람의 딸들’은 가인의 계열(라멕이 등장하는 계열)이라고 해석합니다. 반면 ‘하나님의 아들들’은 아담의 새로운 아들, 셋의 자손으로 해석된다고 합니다(창 4:25~26).</p>
+    <p class="key">중요한 것은, 하나님의 아들들이 사람의 딸들을 아내로 맞이하며 하나님의 백성이라는 <span class="bl"><i>⑦</i><span></span></span>이 다시 혼란스럽게 되었다는 것입니다.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="lab"><b>노아, 새로운 시작</b></div>
+  <div class="body">
+    <blockquote class="q"><p>그러나 노아는 여호와께 은혜를 입었더라 <cite>(창 6:8)</cite></p></blockquote>
+    <blockquote class="q pen"><p>… 노아는 의인이요 당대에 완전한 자라 그는 하나님과 <span class="bl"><i>⑧</i><span></span></span>하였으며 <cite>(창 6:9)</cite></p></blockquote>
+    <blockquote class="q"><p>노아가 그와 같이 하여 하나님이 자기에게 명하신 대로 다 준행하였더라 <cite>(창 6:22)</cite></p></blockquote>
+    <p>무지개는 단순한 약속의 표시가 아닙니다. 이것은 ‘언약’(약속을 넘어 굳게 맺은 계약)의 증거입니다(창 9:13). 하나님께서는 노아와 그의 후손, 그리고 모든 생물과 언약을 맺으셨습니다. 심판하시는 하나님이시지만, 동시에 회복과 새 시작을 주시는 은혜의 하나님이십니다.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="lab"><b>시날 땅 &amp; 바벨탑</b></div>
+  <div class="body">
+    <blockquote class="q pen"><p>또 말하되 자, 성읍과 탑을 건설하여 그 탑 꼭대기를 하늘에 닿게 하여 우리 <span class="bl"><i>⑨</i><span></span></span>을 내고 온 지면에 흩어짐을 면하자 하였더니 <cite>(창 11:4)</cite></p></blockquote>
+    <p>하나님이 높여지는 것이 아니라 인간들이, 인간들을 위해, 인간들의 성을 쌓게 됩니다.</p>
+  </div>
+</div>
+
+<div class="row open last">
+  <div class="lab"><b>오늘날의 바벨탑</b></div>
+  <div class="body">
+    <div class="today">
+      <ul>
+        <li>하나님 없이 나 스스로 성공하려는 자기계발 바벨탑</li>
+        <li>SNS에서 나를 높이고 인정받으려는 자기과시 바벨탑</li>
+        <li>물질과 명예로 안전을 확보하려는 세속적 바벨탑</li>
+      </ul>
+      <p>하나님께서는 우리에게 묻고 계십니다.</p>
+      <p class="big">‘너는 누구의 이름을 높이며 살고 있느냐?’</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<h2>원역사시대 Review · 정리</h2>
+<p>원역사시대만 보더라도 <b>하나님께서 우리에게 원하시는 삶과 베푸시는 은혜</b>를 분명히 알 수 있습니다.</p>
+
+<div class="tl">
+<div class="row">
+  <div class="lab"><small>첫째,</small><b>정체성을 지키는 삶</b></div>
+  <div class="body"><p>세상의 죄악 속에서도 노아는 하나님의 백성이라는 정체성을 굳건히 지켰습니다. 하나님과 동행하는 삶을 살았습니다.</p></div>
+</div>
+<div class="row">
+  <div class="lab"><small>둘째,</small><b>순종하는 삶</b></div>
+  <div class="body"><p>아담과 하와는 단 하나의 명령을 어겨 에덴에서 쫓겨났고, 바벨탑의 사람들은 “땅에 충만하라”는 명령을 어기고 자신들의 이름을 내기 위한 탑을 쌓다가 흩어졌습니다. <b>반면, 노아는</b> “하나님이 자기에게 명하신 대로 다 준행하였더라”는 말씀처럼, 방주를 지으라는 하나님의 명령을 온전히 순종하여 가족과 함께 구원을 받았습니다.</p></div>
+</div>
+<div class="row">
+  <div class="lab"><small>셋째,</small><b>새 시작의 은혜</b></div>
+  <div class="body"><p>원역사시대는 죄의 확산과 심판만으로 끝나지 않았습니다. 하나님께서는 홍수 심판 가운데서도 노아를 남기시고, 무지개의 언약으로 모든 생물과 새 출발을 약속하셨습니다.</p></div>
+</div>
+<div class="row">
+  <div class="lab"><b>아담과 예수님</b></div>
+  <div class="body">
+    <blockquote class="q">
+      <p>“… 아담은 오실 자의 모형이라”<cite>(롬 5:14)</cite>.</p>
+      <p>“한 사람이 순종하지 아니함으로 많은 사람이 죄인 된 것 같이 한 사람이 순종하심으로 많은 사람이 의인이 되리라”<cite>(롬 5:19)</cite>.</p>
+    </blockquote>
+    <p>순종하신 그 한 분이 예수님이십니다. 자세한 이야기는 ‘10. 예수시대’에서 살펴봅니다.</p>
+  </div>
+</div>
+<div class="row last">
+  <div class="lab"><b>열두 시대 내내 이어질 네 가지</b></div>
+  <div class="body">
+    <p class="ask">원역사시대에서 모두 시작됩니다</p>
+    <div class="four">
+      <div><small>하나님의</small><b>통치</b></div>
+      <div><small>노아와 맺으신</small><b>언약</b></div>
+      <div><small>하나님께서 함께하심</small><b>(임재)</b></div>
+      <div><small>하나님의 백성이라는</small><b>정체성</b></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<h2>함께 나누기</h2>
+<p class="lead">2번은 꼭 나누시고, 1번과 3번 가운데 하나를 골라 주십시오. 나눌 수 있는 만큼만 말씀해 주시면 됩니다.</p>
+<ol class="share">
+  <li><div class="qn"><i>1.</i><p>세상의 죄악 속에서도 노아는 하나님의 백성이라는 정체성을 굳건히 지켰습니다. 오늘 우리가 하나님의 백성이라는 정체성을 지키며 산다는 것은 어떤 모습일까요?</p></div><div class="lines" aria-hidden="true"><span></span><span></span><span></span></div></li>
+  <li class="must"><div class="qn"><i>2.</i><p>오늘날 하나님께서 우리에게 주신 명령은 분명합니다. 모든 민족을 제자 삼으라는 명령입니다(마 28:19~20). 이 명령을 이번 주 내 자리에서 지킨다면 무엇부터 할 수 있을까요?</p></div><div class="lines" aria-hidden="true"><span></span><span></span><span></span></div></li>
+  <li><div class="qn"><i>3.</i><p>심판하시는 하나님이시지만, 동시에 회복과 새 시작을 주시는 은혜의 하나님이십니다. 오늘 본 원역사 이야기에서 이 은혜가 보인 장면은 어디였습니까?</p></div><div class="lines" aria-hidden="true"><span></span><span></span><span></span></div></li>
+</ol>
+
+<div class="tl">
+<div class="row last">
+  <div class="lab"><b>다음 시대 예고</b></div>
+  <div class="body">
+    <p>다음 시대는 <b>2. 족장시대</b>입니다. 온 땅에 흩어진 인류 가운데 하나님께서 한 사람, <b>아브라함을 부르심</b>으로 시작되는 족장시대의 이야기로 이어 가겠습니다.</p>
+    <p>다음 시간 전에 읽어 올 곳: <span class="read">창세기 12장 · 22장</span></p>
+  </div>
+</div>
+</div>
+
+<details class="ans">
+  <summary>빈칸 답 보기</summary>
+  <ul class="anslist">
+    <li>① 교제</li><li>② 교만</li><li>③ 두려워</li><li>④ 자랑</li><li>⑤ 칠십칠</li><li>⑥ 확산</li><li>⑦ 정체성</li><li>⑧ 동행</li><li>⑨ 이름</li>
+  </ul>
+</details>
+
+<p class="foot"><span>『12시대』 1장 워크북 · 성경 인용은 개역개정</span><a href="../index.html">『12시대』 표지</a></p>
+
+</main>
+</body>
+</html>
